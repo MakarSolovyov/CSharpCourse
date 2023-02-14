@@ -1,3 +1,3 @@
-# **OOP**
+# **CSharpCourse**
 ##
-+ LabWork1: "Классы"
++ This course is created for uploading the OOP labs.
