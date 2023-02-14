@@ -143,7 +143,7 @@ namespace Model
                             (maleNames.Length)];
                         break;
                     }
-
+                
                 case 2:
                     {
                         tmpGender = GenderType.Female;
@@ -172,8 +172,8 @@ namespace Model
                 throw new FormatException("Name can't be null or empty.");
             }
 
-            var nameLanguage = new Regex(@"(^[A-Z][a-z]+(-[A-Z][a-z]+)?$)|
-                (^[А-Я][а-я]+(-[А-Я][а-я]+)?$)");
+            var nameLanguage = new Regex(@"(^[A-z]+(-[A-z])?[A-z]*$)|
+                (^[А-я]+(-[А-я])?[А-я]*$)");
 
             if (nameLanguage.IsMatch(name) == false)
             {
@@ -192,9 +192,9 @@ namespace Model
         private void CheckSurnameLanguage(string surname)
         {
             var latinLanguage = new Regex
-                (@"^[A-Z][a-z]+(-[A-Z][a-z]+)?$");
+                (@"^[A-z]+(-[A-z])?[A-z]*$");
             var cyrillicLanguage = new Regex
-                (@"^[А-Я][а-я]+(-[А-Я][а-я]+)?$");
+                (@"^[А-я]+(-[А-я])?[А-я]*$");
 
             CheckNameLanguage(surname);
 
