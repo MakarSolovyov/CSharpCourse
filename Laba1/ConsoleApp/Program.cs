@@ -1,5 +1,4 @@
 using Model;
-using static Model.Person;
 
 namespace ConsoleApp
 {
@@ -8,25 +7,28 @@ namespace ConsoleApp
     /// </summary>
     public static class Program
     {
+        /// <summary>
+        /// Class Main.
+        /// </summary>
         private static void Main()
         {
             // Create two lists
-            PersonList listGryffindor = new PersonList();
-            PersonList listSlytherin = new PersonList();
+            var listGryffindor = new PersonList();
+            var listSlytherin = new PersonList();
 
             // Create 6 people to fill the lists
-            Person potter = new Person
+            var potter = new Person
                 ("Harry", "Potter", 12, GenderType.Male);
-            Person granger = new Person
+            var granger = new Person
                 ("Hermione", "Granger", 12, GenderType.Female);
-            Person weasley = new Person
+            var weasley = new Person
                 ("Ron", "Weasley", 12, GenderType.Male);
 
-            Person snape = new Person
+            var snape = new Person
                 ("Severus", "Snape", 32, GenderType.Male);
-            Person riddle = new Person
+            var riddle = new Person
                 ("Tom", "Riddle", 12, GenderType.Male);
-            Person malfoy = new Person
+            var malfoy = new Person
                 ("Draco", "Malfoy", 12, GenderType.Male);
 
             // Add people to the lists
@@ -48,7 +50,7 @@ namespace ConsoleApp
 
             // Add a new person to the first list
             _ = Console.ReadKey();
-            Person mcgonagall = new Person
+            var mcgonagall = new Person
                 ("Minerva", "Mcgonagall", 55, GenderType.Female);
             listGryffindor.AddPerson(mcgonagall);
 
@@ -88,20 +90,24 @@ namespace ConsoleApp
 
             // Check other methods
             _ = Console.ReadKey();
-            var ggwp = InputPersonByConsole();
-            Console.WriteLine(ggwp.ToString());
+            var inputPerson = InputPersonByConsole();
+            Console.WriteLine(inputPerson.ToString());
 
-            var ggwp2 = GetRandomPerson();
-            Console.WriteLine(ggwp2.ToString());
-
+            var randomPerson = Person.GetRandomPerson();
+            Console.WriteLine(randomPerson.ToString());
         }
 
         /// <summary>
-        /// Fuction which allows to print a certain list of people.
+        /// Function which allows to print a certain list of people.
         /// </summary>
         /// <param name="personList">An instance of class PersonList.</param>
         private static void PrintList(PersonList personList)
         {
+            if (personList == null)
+            {
+                throw new NullReferenceException("Null reference list.");
+            }
+
             if (personList.NumberOfPeople != 0)
             {
                 for (int i = 0; i < personList.NumberOfPeople; i++)
@@ -126,27 +132,46 @@ namespace ConsoleApp
 
             Console.Write("Enter student name: ");
             var tmpName = Console.ReadLine();
+            while (string.IsNullOrEmpty(tmpName))
+            {
+                Console.WriteLine("Incorrect name. Please, enter the" +
+                    " name again.");
+                Console.Write("Enter student name: ");
+                tmpName = Console.ReadLine();
+            }
 
             Console.Write("Enter student surname: ");
             var tmpSurname = Console.ReadLine();
+            while (string.IsNullOrEmpty(tmpSurname))
+            {
+                Console.WriteLine("Incorrect surname. Please, enter the" +
+                    " surname again.");
+                Console.Write("Enter student surname: ");
+                tmpSurname = Console.ReadLine();
+            }
 
             Console.Write("Enter student age: ");
             int tmpAge;
-            var inputAge = Console.ReadLine();
-            bool result = int.TryParse(inputAge, out var resultAge);
-            if (result)
+            while (!int.TryParse(Console.ReadLine(), out tmpAge))
             {
-                tmpAge = resultAge;
-            }
-            else
-            {
-                throw new ArgumentException("Please, filling student" +
-                    " age enter only numbers.");
+                Console.WriteLine("Incorrect surname. Please, enter the" +
+                    " surname again.");
+                Console.Write("Enter student age: ");
             }
 
             Console.Write("Enter student gender (1 - Male, 2 - Female): ");
-            GenderType tmpGender;
-            var tmpNumber = Convert.ToInt32(Console.ReadLine());
+            GenderType tmpGender = GenderType.Female;
+            int tmpNumber;
+
+            while (!int.TryParse(Console.ReadLine(), out tmpNumber) ||
+                (tmpNumber != 1 & tmpNumber != 2))
+            {
+                Console.WriteLine("Incorrect value. Please, enter the" +
+                    " value again.");
+                Console.Write("Enter student gender " +
+                    "(1 - Male, 2 - Female): ");
+            }
+
             switch (tmpNumber)
             {
                 case 1:
@@ -163,7 +188,9 @@ namespace ConsoleApp
 
                 default:
                     {
-                        throw new ArgumentException("Please, enter 1 or 2");
+                        Console.WriteLine("Incorrect value. Please, enter" +
+                            " the value again.");
+                        break;
                     }
             }
 
