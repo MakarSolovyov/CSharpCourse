@@ -62,11 +62,17 @@ namespace Model
             get => _age;
             set
             {
+                //TODO: ставить скобочки
+                //TODO: duplication
                 if (value < 11 || value > 150)
+                {
                     throw new IndexOutOfRangeException("Age value must" +
-                        " be in range [11:150].");
+                          " be in range [11:150].");
+                }
                 else
-                    _age = value;
+                { 
+                    _age = value; 
+                }
             }
         }
 
@@ -94,6 +100,9 @@ namespace Model
             Age = age;
             Gender = gender;
         }
+
+        public Person()
+        {        }
 
         /// <summary>
         /// Converts class field value to string format.
@@ -131,7 +140,11 @@ namespace Model
             var random = new Random();
             var tmpNumber = random.Next(1, 3);
 
-            GenderType tmpGender = GenderType.Female;
+            //TODO: как вариант
+            GenderType tmpGender = tmpNumber == 1
+                ? GenderType.Male
+                : GenderType.Female;
+
             string tmpName = "Default";
 
             switch (tmpNumber)
@@ -154,11 +167,13 @@ namespace Model
             }
 
             var tmpSurname = surnames[random.Next(surnames.Length)];
+            //TODO: duplication
             var tmpAge = random.Next(11, 150);
 
             return new Person(tmpName, tmpSurname, tmpAge, tmpGender);
         }
 
+        //TODO: naming
         /// <summary>
         /// Check language of the person's name.
         /// </summary>
@@ -167,11 +182,13 @@ namespace Model
         /// characters.</exception>
         private static void CheckNameLanguage(string name)
         {
+            //TODO: поправить порядок задания имени и фамилии
             if (string.IsNullOrEmpty(name))
             {
                 throw new FormatException("Name can't be null or empty.");
             }
 
+            //TODO: duplication
             var nameLanguage = new Regex(@"(^[A-z]+(-[A-z])?[A-z]*$)|
                 (^[А-я]+(-[А-я])?[А-я]*$)");
 
@@ -191,6 +208,7 @@ namespace Model
         /// characters.</exception>
         private void CheckSurnameLanguage(string surname)
         {
+            //TODO: duplication
             var latinLanguage = new Regex
                 (@"^[A-z]+(-[A-z])?[A-z]*$");
             var cyrillicLanguage = new Regex
@@ -224,6 +242,7 @@ namespace Model
         /// <returns>Edited name or surname of the person.</returns>
         private static string EditRegister(string word)
         {
+            //TODO: проверить, работает ли для двойной фамилии
             return CultureInfo.CurrentCulture.TextInfo.
                 ToTitleCase(word.ToLower());
         }

@@ -90,6 +90,7 @@ namespace ConsoleApp
 
             // Check other methods
             _ = Console.ReadKey();
+            //TODO: try-catch
             var inputPerson = InputPersonByConsole();
             Console.WriteLine(inputPerson.ToString());
 
@@ -129,7 +130,8 @@ namespace ConsoleApp
         /// <exception cref="ArgumentException">Only numbers.</exception>
         public static Person InputPersonByConsole()
         {
-
+            var person = new Person();
+            //TODO: duplication
             Console.Write("Enter student name: ");
             var tmpName = Console.ReadLine();
             while (string.IsNullOrEmpty(tmpName))
@@ -139,6 +141,8 @@ namespace ConsoleApp
                 Console.Write("Enter student name: ");
                 tmpName = Console.ReadLine();
             }
+            //TODO: try-catch
+            person.Name = tmpName;
 
             Console.Write("Enter student surname: ");
             var tmpSurname = Console.ReadLine();
@@ -194,7 +198,7 @@ namespace ConsoleApp
                     }
             }
 
-            return new Person(tmpName, tmpSurname, tmpAge, tmpGender);
+            return person;
         }
     }
 }
