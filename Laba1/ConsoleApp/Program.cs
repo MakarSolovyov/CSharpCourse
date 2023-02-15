@@ -131,74 +131,63 @@ namespace ConsoleApp
         public static Person InputPersonByConsole()
         {
             var person = new Person();
-            //TODO: duplication
-            Console.Write("Enter student name: ");
-            var tmpName = Console.ReadLine();
-            while (string.IsNullOrEmpty(tmpName))
-            {
-                Console.WriteLine("Incorrect name. Please, enter the" +
-                    " name again.");
-                Console.Write("Enter student name: ");
-                tmpName = Console.ReadLine();
-            }
-            //TODO: try-catch
-            person.Name = tmpName;
 
-            Console.Write("Enter student surname: ");
-            var tmpSurname = Console.ReadLine();
-            while (string.IsNullOrEmpty(tmpSurname))
+            var actionList = new List<(Action, string)>
             {
-                Console.WriteLine("Incorrect surname. Please, enter the" +
-                    " surname again.");
-                Console.Write("Enter student surname: ");
-                tmpSurname = Console.ReadLine();
-            }
-
-            Console.Write("Enter student age: ");
-            int tmpAge;
-            while (!int.TryParse(Console.ReadLine(), out tmpAge))
-            {
-                Console.WriteLine("Incorrect surname. Please, enter the" +
-                    " surname again.");
-                Console.Write("Enter student age: ");
-            }
-
-            Console.Write("Enter student gender (1 - Male, 2 - Female): ");
-            GenderType tmpGender = GenderType.Female;
-            int tmpNumber;
-
-            while (!int.TryParse(Console.ReadLine(), out tmpNumber) ||
-                (tmpNumber != 1 & tmpNumber != 2))
-            {
-                Console.WriteLine("Incorrect value. Please, enter the" +
-                    " value again.");
-                Console.Write("Enter student gender " +
-                    "(1 - Male, 2 - Female): ");
-            }
-
-            switch (tmpNumber)
-            {
-                case 1:
+                (new Action(() =>
+                {
+                    Console.Write($"Enter student name: ");
+                    person.Name = Console.ReadLine();
+                }), "name"),
+                new Action(() =>
+                {
+                    Console.Write($"Enter student surname: ");
+                    person.Surname = Console.ReadLine();
+                }),
+                new Action(() =>
+                {
+                    Console.Write($"Enter student age: ");
+                    int.TryParse(Console.ReadLine(), out int tmpAge);
+                    person.Age = tmpAge;
+                }),
+                new Action(() =>
+                {
+                    Console.Write($"Enter student gender (1 - Male or 2 - Female): ");
+                    int.TryParse(Console.ReadLine(), out int tmpGender);
+                    if (tmpGender < 1 || tmpGender > 2)
                     {
-                        tmpGender = GenderType.Male;
-                        break;
+                        throw new OutOfRangeException();
                     }
+                    var realGender = tmpGender == 1
+                        ? GenderType.Male
+                        : GenderType.Female;
+                    person.Gender = realGender;
+                })
+            };
 
-                case 2:
-                    {
-                        tmpGender = GenderType.Female;
-                        break;
-                    }
-
-                default:
-                    {
-                        Console.WriteLine("Incorrect value. Please, enter" +
-                            " the value again.");
-                        break;
-                    }
+            foreach(var action in actionList)
+            {
+                ActionHandler(action.Item1, action.Item2);
             }
 
             return person;
+        }
+
+        private static void ActionHandler(Action action, string propertyName)
+        {
+            while (true)
+            {
+                try
+                {
+                    action.Invoke();
+                    break;
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine($"Incorrect {propertyName}. Error: {exception.Message}." +
+                        $"Please, enter the name again.");
+                }
+            }
         }
     }
 }
