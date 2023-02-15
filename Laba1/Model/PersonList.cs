@@ -33,8 +33,10 @@
             if (_listOfPeople.Length != 0)
             {
                 var tmpListOfPeople = new Person[0];
+                //TODO: rsdn
                 var CountyOfPeople = 0;
 
+                //TODO: переделать
                 foreach (Person man in _listOfPeople)
                 {
                     if (person == man)
@@ -67,6 +69,7 @@
         {
             IndexInArray(index);
 
+            //TODO: переписать, убрать дублирование
             for (int i = 0; i < _listOfPeople.Length; i++)
             {
                 if (i == index)
@@ -93,6 +96,7 @@
             return _listOfPeople[index];
         }
 
+        //TODO: return int[]
         /// <summary>
         /// Function which allows to find an index of the certain person.
         /// </summary>
@@ -127,6 +131,7 @@
         /// </summary>
         public int NumberOfPeople => _listOfPeople.Length;
 
+        //TODO: naming
         /// <summary>
         /// Function which allows to check index in the list.
         /// </summary>
