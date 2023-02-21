@@ -47,12 +47,15 @@ namespace ConsoleApp
 
             Console.WriteLine("List of Slytherin students:");
             PrintList(listSlytherin);
+            Console.WriteLine();
 
             // Add a new person to the first list
             _ = Console.ReadKey();
             var mcgonagall = new Person
                 ("Minerva", "Mcgonagall", 55, GenderType.Female);
             listGryffindor.AddPerson(mcgonagall);
+            Console.WriteLine("New person is added");
+            Console.WriteLine();
 
             // Copy the second person from the first list to the end of
             // the second one
@@ -65,6 +68,7 @@ namespace ConsoleApp
 
             Console.WriteLine("List of Slytherin students:");
             PrintList(listSlytherin);
+            Console.WriteLine();
 
             // Delete the second person from the first list
             _ = Console.ReadKey();
@@ -76,26 +80,41 @@ namespace ConsoleApp
 
             Console.WriteLine("List of Slytherin students:");
             PrintList(listSlytherin);
+            Console.WriteLine();
 
             // Clear the second list
             _ = Console.ReadKey();
             listSlytherin.ClearList();
 
-            // Print the lists
-            Console.WriteLine("List of Gryffindor students:");
-            PrintList(listGryffindor);
-
+            // Print the list
             Console.WriteLine("List of Slytherin students:");
             PrintList(listSlytherin);
+            Console.WriteLine();
 
             // Check other methods
             _ = Console.ReadKey();
-            //TODO: try-catch
-            var inputPerson = InputPersonByConsole();
-            Console.WriteLine(inputPerson.ToString());
 
-            var randomPerson = Person.GetRandomPerson();
-            Console.WriteLine(randomPerson.ToString());
+            try
+            {
+                var inputPerson = InputPersonByConsole();
+                Console.WriteLine(inputPerson.ToString());
+            }
+            catch (ArgumentException exception)
+            {
+                Console.WriteLine
+                    ($"Incorrect process. Error: {exception.Message}.");
+            }
+
+            try
+            {
+                var randomPerson = Person.GetRandomPerson();
+                Console.WriteLine(randomPerson.ToString());
+            }
+            catch (ArgumentException exception)
+            {
+                Console.WriteLine
+                    ($"Incorrect process. Error: {exception.Message}.");
+            }
         }
 
         /// <summary>
@@ -134,38 +153,45 @@ namespace ConsoleApp
 
             var actionList = new List<(Action, string)>
             {
-                (new Action(() =>
+                (
+                new Action(() =>
                 {
                     Console.Write($"Enter student name: ");
                     person.Name = Console.ReadLine();
                 }), "name"),
-                new Action(() =>
+
+                (new Action(() =>
                 {
                     Console.Write($"Enter student surname: ");
                     person.Surname = Console.ReadLine();
-                }),
-                new Action(() =>
+                }), "surname"),
+
+                (new Action(() =>
                 {
                     Console.Write($"Enter student age: ");
-                    int.TryParse(Console.ReadLine(), out int tmpAge);
+                    _ = int.TryParse(Console.ReadLine(), out int tmpAge);
                     person.Age = tmpAge;
-                }),
-                new Action(() =>
+                }), "age"),
+
+                (new Action(() =>
                 {
-                    Console.Write($"Enter student gender (1 - Male or 2 - Female): ");
-                    int.TryParse(Console.ReadLine(), out int tmpGender);
+                    Console.Write
+                        ($"Enter student gender (1 - Male or 2 - Female): ");
+                    _ = int.TryParse(Console.ReadLine(), out int tmpGender);
                     if (tmpGender < 1 || tmpGender > 2)
                     {
-                        throw new OutOfRangeException();
+                        throw new IndexOutOfRangeException
+                            ("Incorrect number!");
                     }
+
                     var realGender = tmpGender == 1
                         ? GenderType.Male
                         : GenderType.Female;
                     person.Gender = realGender;
-                })
+                }), "gender")
             };
 
-            foreach(var action in actionList)
+            foreach (var action in actionList)
             {
                 ActionHandler(action.Item1, action.Item2);
             }
@@ -173,6 +199,12 @@ namespace ConsoleApp
             return person;
         }
 
+        /// <summary>
+        /// Method which is used for doing actions from the list.
+        /// </summary>
+        /// <param name="action">A certain action.</param>
+        /// <param name="propertyName">Additional parameter
+        /// for exception.</param>
         private static void ActionHandler(Action action, string propertyName)
         {
             while (true)
@@ -182,10 +214,11 @@ namespace ConsoleApp
                     action.Invoke();
                     break;
                 }
-                catch (Exception exception)
+                catch (ArgumentException exception)
                 {
-                    Console.WriteLine($"Incorrect {propertyName}. Error: {exception.Message}." +
-                        $"Please, enter the name again.");
+                    Console.WriteLine($"Incorrect {propertyName}." +
+                        $" Error: {exception.Message}." +
+                        $"Please, enter the {propertyName} again.");
                 }
             }
         }
