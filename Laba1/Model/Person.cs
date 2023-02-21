@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace Model
 {
@@ -29,6 +30,16 @@ namespace Model
         private GenderType _gender;
 
         /// <summary>
+        /// Maximum age value
+        /// </summary>
+        private const int MaxAge = 150;
+
+        /// <summary>
+        /// Minimum age value
+        /// </summary>
+        private const int MinAge = 11;
+
+        /// <summary>
         /// Enter the name of the person.
         /// </summary>
         public string Name
@@ -36,8 +47,12 @@ namespace Model
             get => _name;
             set
             {
-                CheckNameLanguage(value);
                 _name = EditRegister(value);
+
+                if (_name != null)
+                {
+                    CheckNameSurname();
+                }
             }
         }
 
@@ -49,8 +64,12 @@ namespace Model
             get => _surname;
             set
             {
-                CheckSurnameLanguage(value);
                 _surname = EditRegister(value);
+
+                if (_name != null)
+                {
+                    CheckNameSurname();
+                }
             }
         }
 
@@ -62,12 +81,10 @@ namespace Model
             get => _age;
             set
             {
-                //TODO: ставить скобочки
-                //TODO: duplication
-                if (value < 11 || value > 150)
+                if (value < MinAge || value > MaxAge)
                 {
                     throw new IndexOutOfRangeException("Age value must" +
-                          " be in range [11:150].");
+                          $" be in range [{MinAge}:{MaxAge}].");
                 }
                 else
                 { 
@@ -102,7 +119,7 @@ namespace Model
         }
 
         public Person()
-        {        }
+        { }
 
         /// <summary>
         /// Converts class field value to string format.
@@ -140,97 +157,67 @@ namespace Model
             var random = new Random();
             var tmpNumber = random.Next(1, 3);
 
-            //TODO: как вариант
             GenderType tmpGender = tmpNumber == 1
                 ? GenderType.Male
                 : GenderType.Female;
 
-            string tmpName = "Default";
-
-            switch (tmpNumber)
-            {
-                case 1:
-                    {
-                        tmpGender = GenderType.Male;
-                        tmpName = maleNames[random.Next
-                            (maleNames.Length)];
-                        break;
-                    }
-                
-                case 2:
-                    {
-                        tmpGender = GenderType.Female;
-                        tmpName = femaleNames[random.Next
-                            (femaleNames.Length)];
-                        break;
-                    }
-            }
+            string tmpName = tmpGender == GenderType.Male
+                ? maleNames[random.Next(maleNames.Length)]
+                : femaleNames[random.Next(femaleNames.Length)];
 
             var tmpSurname = surnames[random.Next(surnames.Length)];
-            //TODO: duplication
-            var tmpAge = random.Next(11, 150);
+            var tmpAge = random.Next(MinAge, MaxAge);
 
             return new Person(tmpName, tmpSurname, tmpAge, tmpGender);
         }
 
-        //TODO: naming
         /// <summary>
-        /// Check language of the person's name.
+        /// Check language of the string.
         /// </summary>
-        /// <param name="name">Name of the person.</param>
-        /// <exception cref="FormatException">Only Cyrillic or Latin
-        /// characters.</exception>
-        private static void CheckNameLanguage(string name)
+        /// <param name="name">String.</param>
+        private static string CheckStringLanguage(string name)
         {
-            //TODO: поправить порядок задания имени и фамилии
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new FormatException("Name can't be null or empty.");
-            }
-
-            //TODO: duplication
-            var nameLanguage = new Regex(@"(^[A-z]+(-[A-z])?[A-z]*$)|
-                (^[А-я]+(-[А-я])?[А-я]*$)");
-
-            if (nameLanguage.IsMatch(name) == false)
-            {
-                throw new FormatException("Name must consist only " +
-                    "Cyrillic or Latin characters.");
-            }
-        }
-
-        /// <summary>
-        /// Check language of the person's surname according
-        /// to the name's language.
-        /// </summary>
-        /// <param name="surname">Surname of the person.</param>
-        /// <exception cref="FormatException">Only necessary
-        /// characters.</exception>
-        private void CheckSurnameLanguage(string surname)
-        {
-            //TODO: duplication
             var latinLanguage = new Regex
                 (@"^[A-z]+(-[A-z])?[A-z]*$");
             var cyrillicLanguage = new Regex
                 (@"^[А-я]+(-[А-я])?[А-я]*$");
-
-            CheckNameLanguage(surname);
-
-            if (latinLanguage.IsMatch(Name))
+            
+            if (string.IsNullOrEmpty(name) == false)
             {
-                if (latinLanguage.IsMatch(surname) == false)
+                if (latinLanguage.IsMatch(name))
                 {
-                    throw new FormatException("Name and Surname must" +
-                        " consist only Latin characters.");
+                    return "latin";
+                }
+                else if (cyrillicLanguage.IsMatch(name))
+                {
+                    return "cyrillic";
+                }
+                else
+                {
+                    return "Unknown";
                 }
             }
 
-            if (cyrillicLanguage.IsMatch(Name))
+            return "Unknown";
+        }
+
+        /// <summary>
+        /// Compare languages of the person's surname and name.
+        /// </summary>
+        /// <exception cref="FormatException">Only one
+        /// language.</exception>
+        private void CheckNameSurname()
+        {
+            if ((string.IsNullOrEmpty(Name) == false)
+                & (string.IsNullOrEmpty(Surname) == false))
             {
-                if (cyrillicLanguage.IsMatch(surname) == false)
+                var nameLanguage = CheckStringLanguage(Name);
+                var surnameLanguage = CheckStringLanguage(Surname);
+
+                if (nameLanguage != surnameLanguage)
                 {
                     throw new FormatException("Name and Surname must" +
-                        " consist only Cyrillic characters.");
+                            " be only in one language.");
                 }
             }
         }
@@ -242,7 +229,6 @@ namespace Model
         /// <returns>Edited name or surname of the person.</returns>
         private static string EditRegister(string word)
         {
-            //TODO: проверить, работает ли для двойной фамилии
             return CultureInfo.CurrentCulture.TextInfo.
                 ToTitleCase(word.ToLower());
         }
