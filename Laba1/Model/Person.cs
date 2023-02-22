@@ -209,7 +209,7 @@ namespace Model
         private void CheckNameSurname()
         {
             if ((string.IsNullOrEmpty(Name) == false)
-                & (string.IsNullOrEmpty(Surname) == false))
+                && (string.IsNullOrEmpty(Surname) == false))
             {
                 var nameLanguage = CheckStringLanguage(Name);
                 var surnameLanguage = CheckStringLanguage(Surname);
