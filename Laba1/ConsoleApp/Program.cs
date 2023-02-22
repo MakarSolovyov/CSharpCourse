@@ -105,16 +105,8 @@ namespace ConsoleApp
                     ($"Incorrect process. Error: {exception.Message}.");
             }
 
-            try
-            {
-                var randomPerson = Person.GetRandomPerson();
-                Console.WriteLine(randomPerson.ToString());
-            }
-            catch (ArgumentException exception)
-            {
-                Console.WriteLine
-                    ($"Incorrect process. Error: {exception.Message}.");
-            }
+            var randomPerson = Person.GetRandomPerson();
+            Console.WriteLine(randomPerson.ToString());
         }
 
         /// <summary>
