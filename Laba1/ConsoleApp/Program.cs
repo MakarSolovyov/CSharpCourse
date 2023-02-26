@@ -99,14 +99,26 @@ namespace ConsoleApp
                 var inputPerson = InputPersonByConsole();
                 Console.WriteLine(inputPerson.ToString());
             }
-            catch (ArgumentException exception)
+            catch (Exception exception)
             {
-                Console.WriteLine
+                if (exception.GetType()
+                        == typeof(IndexOutOfRangeException)
+                        || exception.GetType() == typeof(FormatException)
+                        || exception.GetType() == typeof(ArgumentException))
+                {
+                    Console.WriteLine
                     ($"Incorrect process. Error: {exception.Message}.");
+                }
+                else
+                {
+                    throw exception;
+                }
             }
 
             var randomPerson = Person.GetRandomPerson();
             Console.WriteLine(randomPerson.ToString());
+
+            _ = Console.ReadKey();
         }
 
         /// <summary>
@@ -173,7 +185,7 @@ namespace ConsoleApp
                     if (tmpGender < 1 || tmpGender > 2)
                     {
                         throw new IndexOutOfRangeException
-                            ("Incorrect number!");
+                            ("Number must be in range [1; 2].");
                     }
 
                     var realGender = tmpGender == 1
@@ -206,11 +218,21 @@ namespace ConsoleApp
                     action.Invoke();
                     break;
                 }
-                catch (ArgumentException exception)
+                catch (Exception exception)
                 {
-                    Console.WriteLine($"Incorrect {propertyName}." +
-                        $" Error: {exception.Message}." +
+                    if (exception.GetType()
+                        == typeof(IndexOutOfRangeException)
+                        || exception.GetType() == typeof(FormatException)
+                        || exception.GetType() == typeof(ArgumentException))
+                    {
+                        Console.WriteLine($"Incorrect {propertyName}." +
+                        $" Error: {exception.Message}" +
                         $"Please, enter the {propertyName} again.");
+                    }
+                    else
+                    {
+                        throw exception;
+                    }
                 }
             }
         }
