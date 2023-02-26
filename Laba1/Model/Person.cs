@@ -175,7 +175,7 @@ namespace Model
         /// Check language of the string.
         /// </summary>
         /// <param name="name">String.</param>
-        private static string CheckStringLanguage(string name)
+        private static LanguageType CheckStringLanguage(string name)
         {
             var latinLanguage = new Regex
                 (@"^[A-z]+(-[A-z])?[A-z]*$");
@@ -186,19 +186,20 @@ namespace Model
             {
                 if (latinLanguage.IsMatch(name))
                 {
-                    return "latin";
+                    return LanguageType.Latin;
                 }
                 else if (cyrillicLanguage.IsMatch(name))
                 {
-                    return "cyrillic";
+                    return LanguageType.Cyrillic;
                 }
                 else
                 {
-                    return "Unknown";
+                    throw new ArgumentException("Incorrect input." +
+                        " Please, try again!");
                 }
             }
 
-            return "Unknown";
+            return LanguageType.Unknown;
         }
 
         /// <summary>
