@@ -155,32 +155,32 @@ namespace ConsoleApp
         {
             var person = new Person();
 
-            var actionList = new List<(Action, string)>
+            var actionList = new List<(Action<string>, string)>
             {
                 (
-                new Action(() =>
+                new Action<string>((string property) =>
                 {
-                    Console.Write($"Enter student name: ");
+                    Console.Write($"Enter student {property}: ");
                     person.Name = Console.ReadLine();
                 }), "name"),
 
-                (new Action(() =>
+                (new Action<string>((string property) =>
                 {
-                    Console.Write($"Enter student surname: ");
+                    Console.Write($"Enter student {property}: ");
                     person.Surname = Console.ReadLine();
                 }), "surname"),
 
-                (new Action(() =>
+                (new Action<string>((string property) =>
                 {
-                    Console.Write($"Enter student age: ");
+                    Console.Write($"Enter student {property}: ");
                     _ = int.TryParse(Console.ReadLine(), out int tmpAge);
                     person.Age = tmpAge;
                 }), "age"),
 
-                (new Action(() =>
+                (new Action<string>((string property) =>
                 {
                     Console.Write
-                        ($"Enter student gender (1 - Male or 2 - Female): ");
+                        ($"Enter student {property} (1 - Male or 2 - Female): ");
                     _ = int.TryParse(Console.ReadLine(), out int tmpGender);
                     if (tmpGender < 1 || tmpGender > 2)
                     {
@@ -209,13 +209,13 @@ namespace ConsoleApp
         /// <param name="action">A certain action.</param>
         /// <param name="propertyName">Additional parameter
         /// for exception.</param>
-        private static void ActionHandler(Action action, string propertyName)
+        private static void ActionHandler(Action<string> action, string propertyName)
         {
             while (true)
             {
                 try
                 {
-                    action.Invoke();
+                    action.Invoke(propertyName);
                     break;
                 }
                 catch (Exception exception)
