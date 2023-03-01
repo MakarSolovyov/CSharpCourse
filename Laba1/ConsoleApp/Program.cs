@@ -179,8 +179,8 @@ namespace ConsoleApp
 
                 (new Action<string>((string property) =>
                 {
-                    Console.Write
-                        ($"Enter student {property} (1 - Male or 2 - Female): ");
+                    Console.Write($"Enter student {property}" +
+                        $" (1 - Male or 2 - Female): ");
                     _ = int.TryParse(Console.ReadLine(), out int tmpGender);
                     if (tmpGender < 1 || tmpGender > 2)
                     {
@@ -209,7 +209,8 @@ namespace ConsoleApp
         /// <param name="action">A certain action.</param>
         /// <param name="propertyName">Additional parameter
         /// for exception.</param>
-        private static void ActionHandler(Action<string> action, string propertyName)
+        private static void ActionHandler
+            (Action<string> action, string propertyName)
         {
             while (true)
             {
