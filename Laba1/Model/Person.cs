@@ -118,6 +118,9 @@ namespace Model
             Gender = gender;
         }
 
+        /// <summary>
+        /// Create an instance of class Person without parameters.
+        /// </summary>
         public Person()
         { }
 
