@@ -89,16 +89,16 @@ namespace Model
             GenderType gender, int passportNumber, Adult spouse,
             string employer) : base(name, surname, age, gender)
         {
-            PassportNumber = _passportNumber;
-            Employer = _employer;
-            Spouse = _spouse;
+            PassportNumber = passportNumber;
+            Employer = employer;
+            Spouse = spouse;
         }
 
         /// <summary>
         /// Create an instance of class Adult without parameters.
         /// </summary>
         public Adult() : this("Unknown", "Unknown", 17,
-            GenderType.Male, 100000, null, null)
+            GenderType.Male, 222222, null, null)
         { }
 
         /// <summary>
@@ -110,7 +110,8 @@ namespace Model
             var marrigaeStatus = "Not married";
             if (Spouse != null)
             {
-                marrigaeStatus = $"Married to: {Spouse.GetPersonNameSurname}";
+                marrigaeStatus = $"Married to:" +
+                    $" {Spouse.GetPersonNameSurname()}";
             }
 
             var employerStatus = "Unemployed";
@@ -119,7 +120,8 @@ namespace Model
                 employerStatus = $"Current job: {Employer}";
             }
 
-            return $"{GetPersonInfo}; Passport number: {PassportNumber};" +
+            return $"{GetPersonInfo()};\n " +
+                $"Passport number: {PassportNumber};" +
                 $" {marrigaeStatus}; {employerStatus} ";
         }
 
@@ -182,8 +184,8 @@ namespace Model
                 tmpSpouse = new Adult();
 
                 tmpSpouse.Gender = tmpGender == GenderType.Male
-                    ? GenderType.Female
-                    : GenderType.Male;
+                    ? GenderType.Male
+                    : GenderType.Female;
 
                 tmpSpouse.Name = tmpGender == GenderType.Male
                     ? maleNames[random.Next(maleNames.Length)]
@@ -240,7 +242,7 @@ namespace Model
         /// must differ from the adult.</exception>
         private void CheckSpouseGender(Adult spouse)
         {
-            if (spouse != null && spouse.Gender == Gender)
+            if (spouse != null && spouse.Gender != Gender)
             {
                 throw new ArgumentException
                     ($"Spouse gender must be another");

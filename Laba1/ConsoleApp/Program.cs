@@ -13,6 +13,7 @@ namespace ConsoleApp
         private static void Main()
         {
             Console.WriteLine("Создаем список и добавляем 7 человек.");
+            Console.WriteLine();
             var listOfPeople = new PersonList();
             var rnd = new Random();
 

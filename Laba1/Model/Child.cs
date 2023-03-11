@@ -102,11 +102,11 @@ namespace Model
 
             if (Father != null)
             {
-                fatherStatus = $"Father: {Father.GetPersonNameSurname}";
+                fatherStatus = $"Father: {Father.GetPersonNameSurname()}";
             }
-            else if (Mother != null)
+            if (Mother != null)
             {
-                motherStatus = $"Mother: {Mother.GetPersonNameSurname}";
+                motherStatus = $"Mother: {Mother.GetPersonNameSurname()}";
             }
 
             var schoolStatus = "Not studying";
@@ -115,7 +115,7 @@ namespace Model
                 schoolStatus = $"Studying at: {School}";
             }
 
-            return $"{GetPersonInfo}; {fatherStatus}; {motherStatus};" +
+            return $"{GetPersonInfo()};\n {fatherStatus}; {motherStatus};" +
                 $" {schoolStatus}";
         }
 
@@ -185,6 +185,7 @@ namespace Model
             var tmpParent = new Adult();
             var randomParent = new Action<int>((int property) =>
             {
+                tmpParent = new Adult();
                 tmpParent.Gender = property == 1
                     ? GenderType.Male
                     : GenderType.Female;
