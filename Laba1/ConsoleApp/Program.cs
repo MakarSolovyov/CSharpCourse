@@ -97,7 +97,7 @@ namespace ConsoleApp
             try
             {
                 var inputPerson = InputPersonByConsole();
-                Console.WriteLine(inputPerson.ToString());
+                Console.WriteLine(inputPerson.GetPersonInfo());
             }
             catch (Exception exception)
             {
@@ -116,7 +116,7 @@ namespace ConsoleApp
             }
 
             var randomPerson = Person.GetRandomPerson();
-            Console.WriteLine(randomPerson.ToString());
+            Console.WriteLine(randomPerson.GetPersonInfo());
 
             _ = Console.ReadKey();
         }
@@ -137,7 +137,7 @@ namespace ConsoleApp
                 for (int i = 0; i < personList.NumberOfPeople; i++)
                 {
                     var tmpPerson = personList.FindPersonByIndex(i);
-                    Console.WriteLine(tmpPerson.ToString());
+                    Console.WriteLine(tmpPerson.GetPersonInfo());
                 }
             }
             else

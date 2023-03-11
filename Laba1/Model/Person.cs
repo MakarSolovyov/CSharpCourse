@@ -128,7 +128,7 @@ namespace Model
         /// Converts class field value to string format.
         /// </summary>
         /// <returns>Information about person.</returns>
-        public override string ToString()
+        public string GetPersonInfo()
         {
             return $"{Name} {Surname}; Age - {Age}; Gender - {Gender}";
         }
