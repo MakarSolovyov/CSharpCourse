@@ -246,5 +246,24 @@ namespace Model
                     ($"Spouse gender must be another");
             }
         }
+
+        /// <summary>
+        /// Method which shows the chosen side in Second Wizarding War.
+        /// </summary>
+        /// <returns>The chosen side.</returns>
+        public string GetSide()
+        {
+            var rnd = new Random();
+
+            string[] warSides =
+            {
+                "Albus Dumbledore", "Lord Voldemort", "No one"
+            };
+
+            var chosenSide = warSides[rnd.Next(warSides.Length)];
+
+            return $"The side of {chosenSide} is chosen during" +
+                $" Second Wizarding War";
+        }
     }
 }

@@ -250,5 +250,24 @@ namespace Model
                     ("Parent gender must be another");
             }
         }
+
+        /// <summary>
+        /// Method which shows the preferred for wizard Hogwarts house.
+        /// </summary>
+        /// <returns>The chosen house.</returns>
+        public string GetRandomHouse()
+        {
+            var rnd = new Random();
+
+            string[] houses =
+            {
+                "Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"
+            };
+
+            var preferredHouse = houses[rnd.Next(houses.Length)];
+
+            return $"The preferred Hoqwarts house for this wizard" +
+                $" is {preferredHouse}";
+        }
     }
 }
