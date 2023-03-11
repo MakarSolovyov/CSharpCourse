@@ -32,12 +32,12 @@ namespace Model
         /// <summary>
         /// Maximum age value
         /// </summary>
-        private const int MaxAge = 150;
+        protected const int MaxAge = 150;
 
         /// <summary>
         /// Minimum age value
         /// </summary>
-        private const int MinAge = 11;
+        protected const int MinAge = 11;
 
         /// <summary>
         /// Enter the name of the person.
@@ -81,15 +81,8 @@ namespace Model
             get => _age;
             set
             {
-                if (value < MinAge || value > MaxAge)
-                {
-                    throw new IndexOutOfRangeException("Age value must" +
-                          $" be in range [{MinAge}:{MaxAge}].");
-                }
-                else
-                { 
-                    _age = value; 
-                }
+                CheckAge(value);
+                _age = value;
             }
         }
 
@@ -141,47 +134,6 @@ namespace Model
         public string GetPersonNameSurname()
         {
             return $"{Name} {Surname}";
-        }
-
-        /// <summary>
-        /// Method which allows to enter a random person.
-        /// </summary>
-        /// <returns>Random person.</returns>
-        public static PersonBase GetRandomPerson()
-        {
-            string[] maleNames =
-            {
-                "Neville", "Dean", "Seamus", "Cormac", "Albus",
-                "Remus", "Sirius", "Colin", "Lucius", "Marcus"
-            };
-
-            string[] femaleNames =
-            {
-                "Dolores", "Leta", "Pansy", "Millicent", "Tracey",
-                "Parvati", "Katie", "Lily", "Romilda", "Alicia"
-            };
-
-            string[] surnames =
-            {
-                "Black", "Potter", "Weasley", "Longbottom", "Hagrid",
-                "Lestrange", "Malfoy", "Carrow", "Goyle", "Finnigan"
-            };
-
-            var random = new Random();
-            var tmpNumber = random.Next(1, 3);
-
-            GenderType tmpGender = tmpNumber == 1
-                ? GenderType.Male
-                : GenderType.Female;
-
-            string tmpName = tmpGender == GenderType.Male
-                ? maleNames[random.Next(maleNames.Length)]
-                : femaleNames[random.Next(femaleNames.Length)];
-
-            var tmpSurname = surnames[random.Next(surnames.Length)];
-            var tmpAge = random.Next(MinAge, MaxAge);
-
-            return new PersonBase(tmpName, tmpSurname, tmpAge, tmpGender);
         }
 
         /// <summary>
@@ -252,5 +204,11 @@ namespace Model
         /// </summary>
         /// <returns></returns>
         public abstract string GetInfo();
+
+        /// <summary>
+        /// Check person's age.
+        /// </summary>
+        /// <param name="age">Person's age.</param>
+        protected abstract void CheckAge(int age);
     }
 }

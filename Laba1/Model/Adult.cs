@@ -1,4 +1,6 @@
-﻿namespace Model
+﻿using static System.Net.Mime.MediaTypeNames;
+
+namespace Model
 {
     /// <summary>
     /// Class which describes a certain adult.
@@ -43,6 +45,7 @@
             get => _passportNumber;
             set
             {
+                CheckPassportNumber(value);
                 _passportNumber = value;
             }
         }
@@ -67,6 +70,7 @@
             get => _spouse;
             set
             {
+                CheckSpouseGender(value);
                 _spouse = value;
             }
         }
@@ -117,6 +121,130 @@
 
             return $"{GetPersonInfo}; Passport number: {PassportNumber};" +
                 $" {marrigaeStatus}; {employerStatus} ";
+        }
+
+        /// <summary>
+        /// Method which allows to enter a random adult.
+        /// </summary>
+        /// <returns>Information about an adult.</returns>
+        public static Adult GetRandomPerson()
+        {
+            string[] maleNames =
+            {
+                "Neville", "Dean", "Seamus", "Cormac", "Albus",
+                "Remus", "Sirius", "Colin", "Lucius", "Marcus"
+            };
+
+            string[] femaleNames =
+            {
+                "Dolores", "Leta", "Pansy", "Millicent", "Tracey",
+                "Parvati", "Katie", "Lily", "Romilda", "Alicia"
+            };
+
+            string[] surnames =
+            {
+                "Black", "Potter", "Weasley", "Longbottom", "Hagrid",
+                "Lestrange", "Malfoy", "Carrow", "Goyle", "Finnigan"
+            };
+
+            string[] employers =
+            {
+                "Hogwarts", "Ministry of Magic",
+                "Beauxbatons Academy of Magic", "Durmstrang Institute",
+                "Order of the Phoenix", "Death Eaters",
+                "National Quidditch team",
+                "International Confederation of Wizards",
+                "Daily Prophet", "Romanian Dragon Sanctuary"
+            };
+
+            var random = new Random();
+            var tmpNumber = random.Next(1, 3);
+
+            GenderType tmpGender = tmpNumber == 1
+                ? GenderType.Male
+                : GenderType.Female;
+
+            string tmpName = tmpGender == GenderType.Male
+                ? maleNames[random.Next(maleNames.Length)]
+                : femaleNames[random.Next(femaleNames.Length)];
+
+            var tmpSurname = surnames[random.Next(surnames.Length)];
+
+            var tmpAge = random.Next(AdultMinAge, MaxAge);
+
+            var tmpPassportNumber = random.Next
+                (PassportLowBound, PassportHighBound);
+
+            Adult tmpSpouse = null;
+            var spouseStatus = random.Next(1, 3);
+            if (spouseStatus == 1)
+            {
+                tmpSpouse = new Adult();
+
+                tmpSpouse.Gender = tmpGender == GenderType.Male
+                    ? GenderType.Female
+                    : GenderType.Male;
+
+                tmpSpouse.Name = tmpGender == GenderType.Male
+                    ? maleNames[random.Next(maleNames.Length)]
+                    : femaleNames[random.Next(femaleNames.Length)];
+
+                tmpSpouse.Surname = surnames[random.Next(surnames.Length)];
+            }
+
+            var employerStatus = random.Next(1, 3);
+            string? tmpEmployer = employerStatus == 1
+                ? employers[random.Next(employers.Length)]
+                : null;
+
+            return new Adult(tmpName, tmpSurname, tmpAge, tmpGender,
+                tmpPassportNumber, tmpSpouse, tmpEmployer);
+        }
+
+        /// <summary>
+        /// Check adult's age.
+        /// </summary>
+        /// <param name="age">Adult's age.</param>
+        /// <exception cref="IndexOutOfRangeException">Age must be in a
+        /// certain range.</exception>
+        protected override void CheckAge(int age)
+        {
+            if (age is < AdultMinAge or > MaxAge)
+            {
+                throw new IndexOutOfRangeException($"Adult age value must" +
+                    $" be in range [{AdultMinAge}...{MaxAge}].");
+            }
+        }
+
+        /// <summary>
+        /// Check adult's passport number.
+        /// </summary>
+        /// <param name="passportNumber">Adult's passport number.</param>
+        /// <exception cref="IndexOutOfRangeException">Passport number must
+        /// be in a certain range.</exception>
+        private static void CheckPassportNumber(int passportNumber)
+        {
+            if (passportNumber is < PassportLowBound or > PassportHighBound)
+            {
+                throw new IndexOutOfRangeException($"Passport number must" +
+                    $" be in range [{PassportLowBound}:" +
+                    $" {PassportHighBound}]");
+            }
+        }
+
+        /// <summary>
+        /// Check gender of an adult's spouse.
+        /// </summary>
+        /// <param name="spouse">Gender of an adult's spouse.</param>
+        /// <exception cref="ArgumentException">Gender of adult's spouse
+        /// must differ from the adult.</exception>
+        private void CheckSpouseGender(Adult spouse)
+        {
+            if (spouse != null && spouse.Gender == Gender)
+            {
+                throw new ArgumentException
+                    ($"Spouse gender must be another");
+            }
         }
     }
 }
