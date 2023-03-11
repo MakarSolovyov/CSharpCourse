@@ -7,7 +7,7 @@ namespace Model
     /// <summary>
     /// Class which describes a certain person.
     /// </summary>
-    public class Person
+    public abstract class PersonBase
     {
         /// <summary>
         /// Name of the person.
@@ -109,7 +109,7 @@ namespace Model
         /// <param name="surname">Surname of the person.</param>
         /// <param name="age">Age of the person.</param>
         /// <param name="gender">Gender of the person.</param>
-        public Person(string name, string surname, int age,
+        public PersonBase(string name, string surname, int age,
             GenderType gender)
         {
             Name = name;
@@ -121,11 +121,12 @@ namespace Model
         /// <summary>
         /// Create an instance of class Person without parameters.
         /// </summary>
-        public Person()
+        public PersonBase() : this 
+            ("Unknown", "Unknown", 11, GenderType.Male)
         { }
 
         /// <summary>
-        /// Converts class field value to string format.
+        /// Converts class field values to string format.
         /// </summary>
         /// <returns>Information about person.</returns>
         public string GetPersonInfo()
@@ -134,10 +135,19 @@ namespace Model
         }
 
         /// <summary>
+        /// Converts certain class field values to string format.
+        /// </summary>
+        /// <returns>Person's name and surname.</returns>
+        public string GetPersonNameSurname()
+        {
+            return $"{Name} {Surname}";
+        }
+
+        /// <summary>
         /// Method which allows to enter a random person.
         /// </summary>
         /// <returns>Random person.</returns>
-        public static Person GetRandomPerson()
+        public static PersonBase GetRandomPerson()
         {
             string[] maleNames =
             {
@@ -171,7 +181,7 @@ namespace Model
             var tmpSurname = surnames[random.Next(surnames.Length)];
             var tmpAge = random.Next(MinAge, MaxAge);
 
-            return new Person(tmpName, tmpSurname, tmpAge, tmpGender);
+            return new PersonBase(tmpName, tmpSurname, tmpAge, tmpGender);
         }
 
         /// <summary>
@@ -236,5 +246,11 @@ namespace Model
             return CultureInfo.CurrentCulture.TextInfo.
                 ToTitleCase(word.ToLower());
         }
+
+        /// <summary>
+        /// Get the information about a person.
+        /// </summary>
+        /// <returns></returns>
+        public abstract string GetInfo();
     }
 }

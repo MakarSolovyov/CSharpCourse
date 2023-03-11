@@ -115,7 +115,7 @@ namespace ConsoleApp
                 }
             }
 
-            var randomPerson = Person.GetRandomPerson();
+            var randomPerson = PersonBase.GetRandomPerson();
             Console.WriteLine(randomPerson.GetPersonInfo());
 
             _ = Console.ReadKey();
@@ -151,9 +151,9 @@ namespace ConsoleApp
         /// </summary>
         /// <returns>An instance of class Person.</returns>
         /// <exception cref="ArgumentException">Only numbers.</exception>
-        public static Person InputPersonByConsole()
+        public static PersonBase InputPersonByConsole()
         {
-            var person = new Person();
+            var person = new PersonBase();
 
             var actionList = new List<(Action<string>, string)>
             {

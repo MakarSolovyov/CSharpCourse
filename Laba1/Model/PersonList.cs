@@ -10,31 +10,31 @@ namespace Model
         /// <summary>
         /// A certain array of the people.
         /// </summary>
-        private Person[] _arrayOfPeople = new Person[0];
+        private PersonBase[] _arrayOfPeople = new PersonBase[0];
 
         /// <summary>
         /// Function which allows to add a person to the end of the array.
         /// </summary>
-        /// <param name="person">An instance of class Person.</param>
-        public void AddPerson(Person person)
+        /// <param name="personBase">An instance of class Person.</param>
+        public void AddPerson(PersonBase personBase)
         {
             var indexOfNewPerson = _arrayOfPeople.Length;
 
             Array.Resize(ref _arrayOfPeople, _arrayOfPeople.Length + 1);
-            _arrayOfPeople[indexOfNewPerson] = person;
+            _arrayOfPeople[indexOfNewPerson] = personBase;
         }
 
         /// <summary>
         /// Function which allows to delete a person from the array.
         /// </summary>
-        /// <param name="person">An instance of class Person.</param>
+        /// <param name="personBase">An instance of class Person.</param>
         /// <exception cref="InvalidOperationException">
         /// Array is empty.</exception>
-        public void DeletePerson(Person person)
+        public void DeletePerson(PersonBase personBase)
         {
             if (_arrayOfPeople.Length != 0)
             {
-                int[] indexesToDelete = FindIndexOfPerson(person);
+                int[] indexesToDelete = FindIndexOfPerson(personBase);
 
                 for (int i = 0; i < indexesToDelete.Length; i++)
                 {
@@ -69,7 +69,7 @@ namespace Model
         /// </summary>
         /// <param name="index">Index of the person in list.</param>
         /// <returns>Person from the list.</returns>
-        public Person FindPersonByIndex(int index)
+        public PersonBase FindPersonByIndex(int index)
         {
             IsIndexInArray(index);
 
@@ -79,15 +79,15 @@ namespace Model
         /// <summary>
         /// Function which allows to find an index of the certain person.
         /// </summary>
-        /// <param name="person">An instance of class Person.</param>
+        /// <param name="personBase">An instance of class Person.</param>
         /// <returns>Index of the person.</returns>
-        public int[] FindIndexOfPerson(Person person)
+        public int[] FindIndexOfPerson(PersonBase personBase)
         {
             int[] tmpArray = new int[0];
 
             for (int i = 0; i < _arrayOfPeople.Length; i++)
             {
-                if (_arrayOfPeople[i] == person)
+                if (_arrayOfPeople[i] == personBase)
                 {
                     Array.Resize(ref tmpArray, tmpArray.Length + 1);
                     tmpArray[tmpArray.Length] = i;
