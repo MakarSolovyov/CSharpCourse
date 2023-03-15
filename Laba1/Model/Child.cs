@@ -116,7 +116,7 @@ namespace Model
             }
 
             return $"{GetPersonInfo()};\n {fatherStatus}; {motherStatus};" +
-                $" {schoolStatus}";
+                $" {schoolStatus}\n";
         }
 
         /// <summary>
@@ -164,51 +164,21 @@ namespace Model
             var tmpSurname = surnames[random.Next(surnames.Length)];
 
             var tmpAge = random.Next(MinAge, ChildMaxAge);
-            //TODO: remove
-            Adult tmpSpouse = null;
-            var spouseStatus = random.Next(1, 3);
-            if (spouseStatus == 1)
-            {
-                tmpSpouse = new Adult();
 
-                tmpSpouse.Gender = tmpGender == GenderType.Male
-                    ? GenderType.Female
-                    : GenderType.Male;
+            //TODO: duplication +
 
-                tmpSpouse.Name = tmpGender == GenderType.Male
-                    ? maleNames[random.Next(maleNames.Length)]
-                    : femaleNames[random.Next(femaleNames.Length)];
-
-                tmpSpouse.Surname = surnames[random.Next(surnames.Length)];
-            }
-            //TODO: duplication
-            var tmpParent = new Adult();
-            var randomParent = new Action<int>((int property) =>
-            {
-                tmpParent = new Adult();
-                tmpParent.Gender = property == 1
-                    ? GenderType.Male
-                    : GenderType.Female;
-
-                tmpParent.Name = tmpParent.Gender == GenderType.Male
-                    ? maleNames[random.Next(maleNames.Length)]
-                    : femaleNames[random.Next(femaleNames.Length)];
-
-                tmpParent.Surname = surnames[random.Next(surnames.Length)];
-            });
             Adult tmpFather = null;
             Adult tmpMother = null;
+
             var fatherStatus = random.Next(1, 3);
             if (fatherStatus == 1)
             {
-                randomParent.Invoke(fatherStatus);
-                tmpFather = tmpParent;
+                tmpFather = Adult.GetRandomPerson(GenderType.Male);
             }
             var motherStatus = random.Next(1, 3);
             if (motherStatus == 2)
             {
-                randomParent.Invoke(motherStatus);
-                tmpMother = tmpParent;
+                tmpMother = Adult.GetRandomPerson(GenderType.Female);
             }
 
             var schoolStatus = random.Next(1, 3);

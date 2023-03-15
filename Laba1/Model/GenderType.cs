@@ -13,6 +13,11 @@
         /// <summary>
         /// Male gender.
         /// </summary>
-        Male
+        Male,
+
+        /// <summary>
+        /// Unknown gender.
+        /// </summary>
+        Unknown
     }
 }

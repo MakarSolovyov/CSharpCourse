@@ -122,14 +122,15 @@ namespace Model
 
             return $"{GetPersonInfo()};\n " +
                 $"Passport number: {PassportNumber};" +
-                $" {marrigaeStatus}; {employerStatus} ";
+                $" {marrigaeStatus}; {employerStatus}\n ";
         }
 
         /// <summary>
         /// Method which allows to enter a random adult.
         /// </summary>
         /// <returns>Information about an adult.</returns>
-        public static Adult GetRandomPerson()
+        public static Adult GetRandomPerson
+            (GenderType tmpGender = GenderType.Unknown)
         {
             string[] maleNames =
             {
@@ -160,11 +161,14 @@ namespace Model
             };
 
             var random = new Random();
-            var tmpNumber = random.Next(1, 3);
 
-            GenderType tmpGender = tmpNumber == 1
-                ? GenderType.Male
-                : GenderType.Female;
+            if (tmpGender == GenderType.Unknown)
+            {
+                var tmpNumber = random.Next(1, 3);
+                tmpGender = tmpNumber == 1
+                    ? GenderType.Male
+                    : GenderType.Female;
+            }
 
             string tmpName = tmpGender == GenderType.Male
                 ? maleNames[random.Next(maleNames.Length)]
