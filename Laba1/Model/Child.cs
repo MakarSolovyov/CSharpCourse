@@ -164,7 +164,7 @@ namespace Model
             var tmpSurname = surnames[random.Next(surnames.Length)];
 
             var tmpAge = random.Next(MinAge, ChildMaxAge);
-
+            //TODO: remove
             Adult tmpSpouse = null;
             var spouseStatus = random.Next(1, 3);
             if (spouseStatus == 1)
@@ -181,7 +181,7 @@ namespace Model
 
                 tmpSpouse.Surname = surnames[random.Next(surnames.Length)];
             }
-
+            //TODO: duplication
             var tmpParent = new Adult();
             var randomParent = new Action<int>((int property) =>
             {
