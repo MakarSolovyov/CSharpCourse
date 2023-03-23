@@ -165,8 +165,6 @@ namespace Model
 
             var tmpAge = random.Next(MinAge, ChildMaxAge);
 
-            // TODO: duplication + 
-
             Adult tmpFather = GetRandomParent(1);
             
             Adult tmpMother = GetRandomParent(2);
