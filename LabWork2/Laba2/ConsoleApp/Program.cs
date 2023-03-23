@@ -12,7 +12,6 @@ namespace ConsoleApp
         /// </summary>
         private static void Main()
         {
-            // TODO: Choose one language +
             Console.WriteLine("Let's create a list and add 7 people.");
             Console.WriteLine();
             var listOfPeople = new PersonList();
