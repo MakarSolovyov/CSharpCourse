@@ -165,16 +165,16 @@ namespace Model
 
             var tmpAge = random.Next(MinAge, ChildMaxAge);
 
-            //TODO: duplication +
+            //TODO: duplication 
 
             Adult tmpFather = null;
-            Adult tmpMother = null;
-
             var fatherStatus = random.Next(1, 3);
             if (fatherStatus == 1)
             {
                 tmpFather = Adult.GetRandomPerson(GenderType.Male);
             }
+            
+            Adult tmpMother = null;
             var motherStatus = random.Next(1, 3);
             if (motherStatus == 2)
             {
