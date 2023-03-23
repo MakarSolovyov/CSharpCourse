@@ -12,8 +12,8 @@ namespace ConsoleApp
         /// </summary>
         private static void Main()
         {
-            //TODO: Choose one language
-            Console.WriteLine("Создаем список и добавляем 7 человек.");
+            // TODO: Choose one language +
+            Console.WriteLine("Let's create a list and add 7 people.");
             Console.WriteLine();
             var listOfPeople = new PersonList();
             var rnd = new Random();
@@ -28,15 +28,14 @@ namespace ConsoleApp
 
             _ = Console.ReadKey();
 
-            Console.WriteLine("Выведем на экран описание всех" +
-                " людей списка.");
+            Console.WriteLine("Let's print all people from the list.");
             Console.WriteLine();
             PrintList(listOfPeople);
 
             _ = Console.ReadKey();
 
-            Console.WriteLine("Программно определим тип четвёртого" +
-                " человека списке.");
+            Console.WriteLine
+                ("Let's find out type of the forth person from the list.");
             Console.WriteLine();
             var person = listOfPeople.FindPersonByIndex(3);
 
