@@ -165,21 +165,11 @@ namespace Model
 
             var tmpAge = random.Next(MinAge, ChildMaxAge);
 
-            //TODO: duplication 
+            // TODO: duplication + 
 
-            Adult tmpFather = null;
-            var fatherStatus = random.Next(1, 3);
-            if (fatherStatus == 1)
-            {
-                tmpFather = Adult.GetRandomPerson(GenderType.Male);
-            }
+            Adult tmpFather = GetRandomParent(1);
             
-            Adult tmpMother = null;
-            var motherStatus = random.Next(1, 3);
-            if (motherStatus == 2)
-            {
-                tmpMother = Adult.GetRandomPerson(GenderType.Female);
-            }
+            Adult tmpMother = GetRandomParent(2);
 
             var schoolStatus = random.Next(1, 3);
             string? tmpSchool = schoolStatus == 1
@@ -188,6 +178,35 @@ namespace Model
 
             return new Child(tmpName, tmpSurname, tmpAge, tmpGender,
                 tmpFather, tmpMother, tmpSchool);
+        }
+
+        /// <summary>
+        /// Get random parent for child.
+        /// </summary>
+        /// <param name="a">Parameter for random parent.</param>
+        /// <returns>A certain parent or nobody.</returns>
+        /// <exception cref="ArgumentException">Only input 1 or 2.</exception>
+        public static Adult GetRandomParent(int a)
+        {
+            var random = new Random();
+            var parentStatus = random.Next(1, 3);
+            if (parentStatus == 1)
+            {
+                return null;
+            }
+            else
+            {
+                switch (a)
+                {
+                    case 1:
+                        return Adult.GetRandomPerson(GenderType.Male);
+                    case 2:
+                        return Adult.GetRandomPerson(GenderType.Female);
+                    default:
+                        throw new ArgumentException
+                            ("You should input only 1 or 2");
+                }
+            }
         }
 
         /// <summary>
