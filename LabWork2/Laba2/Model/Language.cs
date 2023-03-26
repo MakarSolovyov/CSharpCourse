@@ -1,22 +1,22 @@
 ﻿namespace Model
 {
     /// <summary>
-    /// Variants of person's gender.
+    /// Variants of languages.
     /// </summary>
-    public enum GenderType
+    public enum LanguageType
     {
         /// <summary>
-        /// Female gender.
+        /// Latin language.
         /// </summary>
-        Female,
-        
-        /// <summary>
-        /// Male gender.
-        /// </summary>
-        Male,
+        Latin,
 
         /// <summary>
-        /// Unknown gender.
+        /// Cyrillic language.
+        /// </summary>
+        Cyrillic,
+
+        /// <summary>
+        /// Unknown language.
         /// </summary>
         Unknown
     }
