@@ -91,5 +91,26 @@ namespace Model
             CyclFrequency = cyclFrequency;
             InitPhase = initPhase;
         }
+
+        /// <summary>
+        /// Get random parameters for calculating coordinate.
+        /// </summary>
+        /// <returns>An instance of a certain class.</returns>
+        public static OscilMotion GetRandomMotion()
+        {
+            var rnd = new Random();
+            const int maxValue = 10;
+
+            var tmpAmplitude = GetRandomValue(maxValue, 1);
+
+            var tmpCyclFrequency = GetRandomValue(maxValue, 1);
+
+            var tmpInitPhase = GetRandomValue(maxValue, 0);
+
+            var tmpTime = GetRandomValue(maxValue, 1);
+
+            return new OscilMotion
+                (tmpAmplitude, tmpCyclFrequency, tmpInitPhase, tmpTime);
+        }
     }
 }
