@@ -65,5 +65,14 @@ namespace Model
             Speed = speed;
             InitCoordinate = initCoordinate;
         }
+
+        public override MotionBase GetRandomMotion()
+        {
+            var rnd = new Random();
+            const int maxValue = 10;
+
+            var tmpInitCoordinate = rnd.NextDouble() * maxValue;
+            return;
+        }
     }
 }
