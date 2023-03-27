@@ -64,8 +64,8 @@ namespace Model
         /// <summary>
         /// Oscillating motion coordinate.
         /// </summary>        
-        public override double Coordinate => Amplitude *
-            Math.Sin(CyclFrequency * Time + InitPhase);
+        public override double Coordinate => Math.Round(Amplitude *
+            Math.Sin(CyclFrequency * Time + InitPhase), 2);
 
         /// <summary>
         /// Information about calculating.
