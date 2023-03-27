@@ -24,14 +24,14 @@ namespace Model
             get => _time;
             set
             {
-                if (_time > 0)
+                if (_time >= 0)
                 {
                     _time = value;
                 }
                 else
                 {
                     throw new ArgumentException
-                        ("Time value must be greater than 0");
+                        ("Time value shouldn't be less than 0.");
                 }
             }
         }
@@ -56,5 +56,7 @@ namespace Model
         /// Info field's property.
         /// </summary>
         public abstract string Info { get; }
+
+
     }
 }
