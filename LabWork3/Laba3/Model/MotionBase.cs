@@ -83,8 +83,8 @@ namespace Model
             var rnd = new Random();
             var plusMinus = rnd.Next(2);
             var tmpValue = plusMinus == 0
-                ? rnd.NextDouble() * maxValue
-                : -rnd.NextDouble() * maxValue;
+                ? Math.Round(rnd.NextDouble() * maxValue, 2)
+                : -Math.Round(rnd.NextDouble() * maxValue, 2);
 
             if (onlyPositive == 1)
             {

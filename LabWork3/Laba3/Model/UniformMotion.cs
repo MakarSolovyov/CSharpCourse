@@ -42,7 +42,8 @@ namespace Model
         /// <summary>
         /// Uniform motion coordinate.
         /// </summary>        
-        public override double Coordinate => InitCoordinate + Speed * Time;
+        public override double Coordinate => Math.Round(InitCoordinate +
+            Speed * Time, 2);
 
         /// <summary>
         /// Information about calculating.
