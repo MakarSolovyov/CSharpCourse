@@ -17,6 +17,11 @@ namespace Model
         private double _time;
 
         /// <summary>
+        /// Minimal value for certain parameters.
+        /// </summary>
+        protected const double MinValue = 0;
+
+        /// <summary>
         /// Time field's property.
         /// </summary>
         public double Time
@@ -24,15 +29,8 @@ namespace Model
             get => _time;
             set
             {
-                if (_time >= 0)
-                {
-                    _time = value;
-                }
-                else
-                {
-                    throw new ArgumentException
-                        ("Time value shouldn't be less than 0.");
-                }
+                CheckValue(value, MinValue);
+                _time = value;
             }
         }
 
@@ -57,6 +55,20 @@ namespace Model
         /// </summary>
         public abstract string Info { get; }
 
-
+        /// <summary>
+        /// Check parameters for positive values.
+        /// </summary>
+        /// <param name="value">A certain value.</param>
+        /// <param name="minValue">Min value.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Value must be
+        /// greater than minimal value.</exception>
+        protected static void CheckValue(double value, double minValue)
+        {
+            if (value < minValue)
+            {
+                throw new ArgumentOutOfRangeException
+                    ($"{value} must be greater than {minValue}");
+            }
+        }
     }
 }

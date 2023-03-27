@@ -32,7 +32,11 @@ namespace Model
         public double Amplitude
         {
             get => _amplitude;
-            set => _amplitude = value;
+            set
+            {
+                CheckValue(value, MinValue);
+                _amplitude = value;
+            }
         }
 
         /// <summary>
@@ -41,7 +45,11 @@ namespace Model
         public double CyclFrequency
         {
             get => _cyclFrequency;
-            set => _cyclFrequency = value;
+            set 
+            {
+                CheckValue(value, MinValue);
+                _cyclFrequency = value;
+            }
         }
 
         /// <summary>
