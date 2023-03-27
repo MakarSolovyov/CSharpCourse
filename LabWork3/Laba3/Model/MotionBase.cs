@@ -70,5 +70,11 @@ namespace Model
                     ($"{value} must be greater than {minValue}");
             }
         }
+
+        /// <summary>
+        /// Get random parameters for calculating coordinate.
+        /// </summary>
+        /// <returns>An instance of a certain class.</returns>
+        public abstract MotionBase GetRandomMotion();
     }
 }
