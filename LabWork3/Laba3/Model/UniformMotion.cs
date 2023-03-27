@@ -66,13 +66,22 @@ namespace Model
             InitCoordinate = initCoordinate;
         }
 
-        public override MotionBase GetRandomMotion()
+        /// <summary>
+        /// Get random parameters for calculating coordinate.
+        /// </summary>
+        /// <returns>An instance of a certain class.</returns>
+        public static UniformMotion GetRandomMotion()
         {
             var rnd = new Random();
             const int maxValue = 10;
 
-            var tmpInitCoordinate = rnd.NextDouble() * maxValue;
-            return;
+            var tmpInitCoordinate = GetRandomValue(maxValue, 0);
+
+            var tmpSpeed = GetRandomValue(maxValue, 0);
+
+            var tmpTime = GetRandomValue(maxValue, 1);
+
+            return new UniformMotion(tmpInitCoordinate, tmpSpeed, tmpTime);
         }
     }
 }

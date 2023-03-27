@@ -83,5 +83,26 @@ namespace Model
             InitCoordinate = initCoordinate;
             Acceleration = acceleration;
         }
+        
+        /// <summary>
+        /// Get random parameters for calculating coordinate.
+        /// </summary>
+        /// <returns>An instance of a certain class.</returns>
+        public static UniformAccelMotion GetRandomMotion()
+        {
+            var rnd = new Random();
+            const int maxValue = 10;
+
+            var tmpInitCoordinate = GetRandomValue(maxValue, 0);
+
+            var tmpAcceleration = GetRandomValue(maxValue, 0);
+
+            var tmpSpeed = GetRandomValue(maxValue, 0);
+
+            var tmpTime = GetRandomValue(maxValue, 1);
+
+            return new UniformAccelMotion
+                (tmpSpeed, tmpInitCoordinate, tmpAcceleration, tmpTime);
+        }
     }
 }
