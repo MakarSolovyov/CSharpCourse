@@ -93,6 +93,12 @@ namespace Model
         }
 
         /// <summary>
+        /// Create an instance of class OscilMotion without parameters.
+        /// </summary>
+        public OscilMotion() : this(1.11, 1.11, 1.11, 1.11)
+        { }
+
+        /// <summary>
         /// Get random parameters for calculating coordinate.
         /// </summary>
         /// <returns>An instance of a certain class.</returns>
