@@ -96,7 +96,7 @@ namespace ConsoleApp
                 }
             });
 
-            ActionHandler(actionMotionType, "Motion");
+            ActionHandler(actionMotionType, "Motion type");
 
             var actionUniformMotion = new List<(Action, string)>
             {
@@ -179,7 +179,7 @@ namespace ConsoleApp
                     Console.Write("Enter the amplitude value: ");
                     uniformMotion.Amplitude =
                         double.Parse(Console.ReadLine());
-                }), "OscilMotion : Speed"),
+                }), "OscilMotion : Amplitude"),
 
                 (new Action(() =>
                 {
@@ -189,7 +189,7 @@ namespace ConsoleApp
                             " value: ");
                     uniformMotion.CyclFrequency =
                         double.Parse(Console.ReadLine());
-                }), "OscilMotion : InitCoordinate"),
+                }), "OscilMotion : CyclFrequency"),
 
                 (new Action(() =>
                 {
