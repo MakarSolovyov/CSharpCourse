@@ -54,9 +54,6 @@ namespace ConsoleApp
 
             _ = Console.ReadKey();
 
-            /*Console.Write($"Coordinate value: " +
-                $"{uniformMotion.Coordinate}");*/
-
             Console.WriteLine("Choose the motion type and input" +
                 " values to calculate coordinate.");
 
