@@ -83,7 +83,14 @@ namespace Model
             InitCoordinate = initCoordinate;
             Acceleration = acceleration;
         }
-        
+
+        /// <summary>
+        /// Create an instance of class UniformAccelMotion without
+        /// parameters.
+        /// </summary>
+        public UniformAccelMotion() : this(1.11, 1.11, 1.11, 1.11)
+        { }
+
         /// <summary>
         /// Get random parameters for calculating coordinate.
         /// </summary>
