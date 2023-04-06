@@ -97,7 +97,5 @@ namespace Model
         /// </summary>
         public OscilMotion() : this(1.11, 1.11, 1.11, 1.11)
         { }
-
-        // TODO:+ to factory
     }
 }

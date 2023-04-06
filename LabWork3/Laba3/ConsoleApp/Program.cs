@@ -17,24 +17,24 @@ namespace ConsoleApp
             {
                 var chosenMotionType = rnd.Next(3);
                 var tmpMotion = new RandomMotionFactory();
+                var motionType = MotionType.UniformMotion;
                 switch (chosenMotionType)
                 {
                     case 0:
-                        motionList.Add(tmpMotion.GetInstance
-                            (MotionType.UniformMotion));
+                        motionType = MotionType.UniformMotion;
                         break;
                     case 1:
-                        motionList.Add(tmpMotion.GetInstance
-                            (MotionType.UniformAccelMotion));
+                        motionType = MotionType.UniformAccelMotion;
                         break;
                     case 2:
-                        motionList.Add(tmpMotion.GetInstance
-                            (MotionType.OscilMotion));
+                        motionType = MotionType.OscilMotion;
                         break;
                     default:
                         Console.WriteLine("Unknown type of motion.");
                         break;
                 }
+
+                motionList.Add(tmpMotion.GetInstance(motionType));
             }
 
             _ = Console.ReadKey();
@@ -108,8 +108,6 @@ namespace ConsoleApp
                 {
                     UniformMotion uniformMotion =
                             (UniformMotion)motionObject;
-
-                    // TODO:+ duplication
                     uniformMotion.Speed =
                         double.Parse(Console.ReadLine());
                 }), "Speed"),

@@ -72,7 +72,5 @@ namespace Model
         /// </summary>
         public UniformMotion() : this (1.11, 1.11, 1.11)
         { }
-
-        // TODO:+ to factory
     }
 }
