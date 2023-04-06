@@ -16,16 +16,20 @@ namespace ConsoleApp
             for (var i = 0; i < 10; i++)
             {
                 var chosenMotionType = rnd.Next(3);
+                var tmpMotion = new RandomMotionFactory();
                 switch (chosenMotionType)
                 {
                     case 0:
-                        motionList.Add(UniformMotion.GetRandomMotion());
+                        motionList.Add(tmpMotion.GetInstance
+                            (MotionType.UniformMotion));
                         break;
                     case 1:
-                        motionList.Add(UniformAccelMotion.GetRandomMotion());
+                        motionList.Add(tmpMotion.GetInstance
+                            (MotionType.UniformAccelMotion));
                         break;
                     case 2:
-                        motionList.Add(OscilMotion.GetRandomMotion());
+                        motionList.Add(tmpMotion.GetInstance
+                            (MotionType.OscilMotion));
                         break;
                     default:
                         Console.WriteLine("Unknown type of motion.");
@@ -104,30 +108,27 @@ namespace ConsoleApp
                 {
                     UniformMotion uniformMotion =
                             (UniformMotion)motionObject;
-                    //TODO: duplication
-                    Console.Write("Enter the speed value: ");
+
+                    // TODO:+ duplication
                     uniformMotion.Speed =
                         double.Parse(Console.ReadLine());
-                }), "UniformMotion : Speed"),
+                }), "Speed"),
 
                 (new Action(() =>
                 {
                     UniformMotion uniformMotion =
                             (UniformMotion)motionObject;
-                    Console.Write("Enter the initial coordinate" +
-                            " value: ");
                     uniformMotion.InitCoordinate =
                         double.Parse(Console.ReadLine());
-                }), "UniformMotion : InitCoordinate"),
+                }), "InitCoordinate"),
 
                 (new Action(() =>
                 {
                     UniformMotion uniformMotion =
                             (UniformMotion)motionObject;
-                    Console.Write("Enter the time value: ");
                     uniformMotion.Time =
                         double.Parse(Console.ReadLine());
-                }), "UniformMotion : Time")
+                }), "Time")
             };
 
             var actionUniformAccelMotion = new List<(Action, string)>
@@ -136,39 +137,33 @@ namespace ConsoleApp
                 {
                     UniformAccelMotion uniformMotion =
                             (UniformAccelMotion)motionObject;
-                    Console.Write("Enter the speed value: ");
                     uniformMotion.Speed =
                         double.Parse(Console.ReadLine());
-                }), "UniformAccelMotion : Speed"),
+                }), "Speed"),
 
                 (new Action(() =>
                 {
                     UniformAccelMotion uniformMotion =
                             (UniformAccelMotion)motionObject;
-                    Console.Write("Enter the initial coordinate" +
-                            " value: ");
                     uniformMotion.InitCoordinate =
                         double.Parse(Console.ReadLine());
-                }), "UniformAccelMotion : InitCoordinate"),
+                }), "InitCoordinate"),
 
                 (new Action(() =>
                 {
                     UniformAccelMotion uniformMotion =
                             (UniformAccelMotion)motionObject;
-                    Console.Write("Enter the acceleration" +
-                            " value: ");
                     uniformMotion.Acceleration =
                         double.Parse(Console.ReadLine());
-                }), "UniformAccelMotion : Acceleration"),
+                }), "Acceleration"),
 
                 (new Action(() =>
                 {
                     UniformAccelMotion uniformMotion =
                             (UniformAccelMotion)motionObject;
-                    Console.Write("Enter the time value: ");
                     uniformMotion.Time =
                         double.Parse(Console.ReadLine());
-                }), "UniformAccelMotion : Time")
+                }), "Time")
             };
 
             var actionOscilMotion = new List<(Action, string)>
@@ -177,49 +172,45 @@ namespace ConsoleApp
                 {
                     OscilMotion uniformMotion =
                             (OscilMotion)motionObject;
-                    Console.Write("Enter the amplitude value: ");
                     uniformMotion.Amplitude =
                         double.Parse(Console.ReadLine());
-                }), "OscilMotion : Amplitude"),
+                }), "Amplitude"),
 
                 (new Action(() =>
                 {
                     OscilMotion uniformMotion =
                             (OscilMotion)motionObject;
-                    Console.Write("Enter the cyclic frequency" +
-                            " value: ");
                     uniformMotion.CyclFrequency =
                         double.Parse(Console.ReadLine());
-                }), "OscilMotion : CyclFrequency"),
+                }), "CyclFrequency"),
 
                 (new Action(() =>
                 {
                     OscilMotion uniformMotion =
                             (OscilMotion)motionObject;
-                    Console.Write("Enter the initial phase" +
-                            " value: ");
                     uniformMotion.InitPhase =
                         double.Parse(Console.ReadLine());
-                }), "OscilMotion : Acceleration"),
+                }), "InitPhase"),
 
                 (new Action(() =>
                 {
                     OscilMotion uniformMotion =
                             (OscilMotion)motionObject;
-                    Console.Write("Enter the time value: ");
                     uniformMotion.Time =
                         double.Parse(Console.ReadLine());
-                }), "OscilMotion : Time")
+                }), "Time")
             };
 
-            var actionDictionary = new Dictionary<Type, List<(Action, string)>>
+            var actionDictionary = new Dictionary
+                <Type, List<(Action, string)>>
             {
                 {typeof(UniformMotion), actionUniformMotion },
                 {typeof(UniformAccelMotion), actionUniformAccelMotion },
                 {typeof(OscilMotion), actionOscilMotion },
             };
 
-            var tmpActionsCollection = actionDictionary[motionObject.GetType()];
+            var tmpActionsCollection = actionDictionary
+                [motionObject.GetType()];
             foreach (var action in tmpActionsCollection)
             {
                 ActionHandler(action.Item1, action.Item2);
@@ -246,6 +237,7 @@ namespace ConsoleApp
             {
                 try
                 {
+                    Console.Write($"Enter the {propertyName} value: ");
                     action.Invoke();
                     return;
                 }

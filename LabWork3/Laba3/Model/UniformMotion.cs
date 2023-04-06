@@ -73,23 +73,6 @@ namespace Model
         public UniformMotion() : this (1.11, 1.11, 1.11)
         { }
 
-        //TODO: to factory
-        /// <summary>
-        /// Get random parameters for calculating coordinate.
-        /// </summary>
-        /// <returns>An instance of a certain class.</returns>
-        public static UniformMotion GetRandomMotion()
-        {
-            var rnd = new Random();
-            const int maxValue = 10;
-
-            var tmpInitCoordinate = GetRandomValue(maxValue, 0);
-
-            var tmpSpeed = GetRandomValue(maxValue, 0);
-
-            var tmpTime = GetRandomValue(maxValue, 1);
-
-            return new UniformMotion(tmpInitCoordinate, tmpSpeed, tmpTime);
-        }
+        // TODO:+ to factory
     }
 }
