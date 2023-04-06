@@ -104,6 +104,7 @@ namespace ConsoleApp
                 {
                     UniformMotion uniformMotion =
                             (UniformMotion)motionObject;
+                    //TODO: duplication
                     Console.Write("Enter the speed value: ");
                     uniformMotion.Speed =
                         double.Parse(Console.ReadLine());
@@ -211,56 +212,24 @@ namespace ConsoleApp
                 }), "OscilMotion : Time")
             };
 
-            switch (motionObject)
+            var actionDictionary = new Dictionary<Type, List<(Action, string)>>
             {
-                case UniformMotion:
-                    {
-                        foreach (var action in actionUniformMotion)
-                        {
-                            ActionHandler(action.Item1, action.Item2);
-                        }
+                {typeof(UniformMotion), actionUniformMotion },
+                {typeof(UniformAccelMotion), actionUniformAccelMotion },
+                {typeof(OscilMotion), actionOscilMotion },
+            };
 
-                        Console.Write($"Coordinate value: " +
-                            $"{motionObject.Coordinate}");
-
-                        _ = Console.ReadKey();
-
-                        break;
-                    }
-
-                case UniformAccelMotion:
-                    {
-                        foreach (var action in actionUniformAccelMotion)
-                        {
-                            ActionHandler(action.Item1, action.Item2);
-                        }
-
-                        Console.Write($"Coordinate value: " +
-                            $"{motionObject.Coordinate}");
-
-                        _ = Console.ReadKey();
-
-                        break;
-                    }
-
-                case OscilMotion:
-                    {
-                        foreach (var action in actionOscilMotion)
-                        {
-                            ActionHandler(action.Item1, action.Item2);
-                        }
-
-                        Console.Write($"Coordinate value: " +
-                            $"{motionObject.Coordinate}");
-
-                        _ = Console.ReadKey();
-
-                        break;
-                    }
-
-                default:
-                    break;
+            var tmpActionsCollection = actionDictionary[motionObject.GetType()];
+            foreach (var action in tmpActionsCollection)
+            {
+                ActionHandler(action.Item1, action.Item2);
             }
+
+            Console.Write($"Coordinate value: " +
+                $"{motionObject.Coordinate}");
+
+            _ = Console.ReadKey();
+
         }
 
         /// <summary>

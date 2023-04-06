@@ -91,6 +91,7 @@ namespace Model
         public UniformAccelMotion() : this(1.11, 1.11, 1.11, 1.11)
         { }
 
+        //TODO: to factory
         /// <summary>
         /// Get random parameters for calculating coordinate.
         /// </summary>
