@@ -71,29 +71,6 @@ namespace Model
             }
         }
 
-        //TODO: remove
-        /// <summary>
-        /// Get random value.
-        /// </summary>
-        /// <param name="maxValue">Max value.</param>
-        /// //TODO: to boolean
-        /// <param name="onlyPositive">Press 1 to get positive value
-        /// for sure.</param>
-        /// <returns>A positive/negative value.</returns>
-        public static double GetRandomValue(int maxValue, int onlyPositive)
-        {
-            var rnd = new Random();
-            var plusMinus = rnd.Next(2);
-            var tmpValue = plusMinus == 0
-                ? Math.Round(rnd.NextDouble() * maxValue, 2)
-                : -Math.Round(rnd.NextDouble() * maxValue, 2);
-
-            if (onlyPositive == 1)
-            {
-                tmpValue = Math.Abs(tmpValue);
-            }
-
-            return tmpValue;
-        }
+        //TODO:+ remove
     }
 }
