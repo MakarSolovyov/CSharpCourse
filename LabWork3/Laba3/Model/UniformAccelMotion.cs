@@ -90,7 +90,5 @@ namespace Model
         /// </summary>
         public UniformAccelMotion() : this(1.11, 1.11, 1.11, 1.11)
         { }
-
-        // TODO:+ to factory
     }
 }

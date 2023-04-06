@@ -21,7 +21,6 @@ namespace Model
         /// Get random value.
         /// </summary>
         /// <param name="maxValue">Max value.</param>
-        /// TODO:+ to boolean
         /// <param name="onlyPositive">Input True to get positive value
         /// for sure.</param>
         /// <returns>A positive/negative value.</returns>

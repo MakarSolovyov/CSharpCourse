@@ -70,7 +70,5 @@ namespace Model
                     ($"{value} must be greater than {minValue}");
             }
         }
-
-        //TODO:+ remove
     }
 }
