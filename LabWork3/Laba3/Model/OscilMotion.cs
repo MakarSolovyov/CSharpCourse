@@ -98,6 +98,7 @@ namespace Model
         public OscilMotion() : this(1.11, 1.11, 1.11, 1.11)
         { }
 
+        //TODO: to factory
         /// <summary>
         /// Get random parameters for calculating coordinate.
         /// </summary>

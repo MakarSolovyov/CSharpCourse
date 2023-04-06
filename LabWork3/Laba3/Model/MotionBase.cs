@@ -71,10 +71,12 @@ namespace Model
             }
         }
 
+        //TODO: remove
         /// <summary>
         /// Get random value.
         /// </summary>
         /// <param name="maxValue">Max value.</param>
+        /// //TODO: to boolean
         /// <param name="onlyPositive">Press 1 to get positive value
         /// for sure.</param>
         /// <returns>A positive/negative value.</returns>
