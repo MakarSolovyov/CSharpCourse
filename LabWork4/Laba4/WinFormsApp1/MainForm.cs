@@ -40,5 +40,10 @@ namespace WinFormsApp1
                 }
             }
         }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            _motionList.Clear();
+        }
     }
 }
