@@ -10,7 +10,7 @@ namespace WinFormsApp1
         public MainForm()
         {
             InitializeComponent();
-
+            Program.mainForm = this;
             MotionDataGridView.DataSource = _motionList;
         }
 
@@ -19,8 +19,6 @@ namespace WinFormsApp1
             var newInputForm = new InputForm();
 
             newInputForm.Show();
-
-            MotionDataGridView.DataSource = _motionList;
 
             newInputForm.Closed += (_, _) =>
             {
@@ -44,6 +42,20 @@ namespace WinFormsApp1
         private void ClearButton_Click(object sender, EventArgs e)
         {
             _motionList.Clear();
+        }
+
+        private void FilterButton_Click(object sender, EventArgs e)
+        {
+            var newFilterForm = new FilterForm();
+
+            newFilterForm.Show();
+
+            newFilterForm.Closed += (_, _) =>
+            {
+                FilterButton.Enabled = true;
+            };
+
+            FilterButton.Enabled = false;
         }
     }
 }

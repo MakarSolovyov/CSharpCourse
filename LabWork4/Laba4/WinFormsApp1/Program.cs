@@ -2,6 +2,8 @@ namespace WinFormsApp1
 {
     internal static class Program
     {
+        public static MainForm mainForm;
+        
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
