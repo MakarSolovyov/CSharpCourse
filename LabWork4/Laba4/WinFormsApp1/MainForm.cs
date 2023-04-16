@@ -29,5 +29,16 @@ namespace WinFormsApp1
 
             AddButton.Enabled = false;
         }
+
+        private void RemoveButton_Click(object sender, EventArgs e)
+        {
+            if (MotionDataGridView.SelectedCells.Count != 0)
+            {
+                foreach (DataGridViewCell cell in MotionDataGridView.SelectedCells)
+                {
+                    _motionList.Remove(cell.OwningRow.DataBoundItem as MotionBase);
+                }
+            }
+        }
     }
 }
