@@ -14,6 +14,9 @@ namespace WinFormsApp1
 {
     public partial class FilterForm : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly Dictionary<string, Type> _motionTypes = new()
         {
             {nameof(UniformMotion), typeof(UniformMotion)},
@@ -21,8 +24,14 @@ namespace WinFormsApp1
             {nameof(OscilMotion), typeof(OscilMotion)}
         };
 
+        /// <summary>
+        /// 
+        /// </summary>
         private readonly Dictionary<string, string> _listBoxToMotionType;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public FilterForm()
         {   
             InitializeComponent();
@@ -34,12 +43,21 @@ namespace WinFormsApp1
                 {"Oscillating", "OscilMotion" }
             };
 
-            MotionTypeCheckedListBox.Items.AddRange(new string[] { "Uniform", "Uniformly accelerated", "Oscillating" });
+            MotionTypeCheckedListBox.Items.AddRange(
+                new string[] { 
+                    "Uniform", "Uniformly accelerated", "Oscillating" 
+                });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FilterButton_Click(object sender, EventArgs e)
         {
-            if (Convert.ToDouble(UpperBoundTextBox.Text) < Convert.ToDouble(LowerBoundTextBox.Text))
+            if (Convert.ToDouble(UpperBoundTextBox.Text) 
+                < Convert.ToDouble(LowerBoundTextBox.Text))
             {
                 MessageBox.Show("Wrong range!");
             }
@@ -77,7 +95,5 @@ namespace WinFormsApp1
         {
             Program.mainForm.MotionDataGridView.DataSource = MainForm._motionList;
         }
-
-
     }
 }

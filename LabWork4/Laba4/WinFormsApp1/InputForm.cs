@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Model;
 
+
 namespace WinFormsApp1
 {
     public partial class InputForm : Form
@@ -21,7 +22,7 @@ namespace WinFormsApp1
         {
             InitializeComponent();
 
-            ComboBoxMotionTypes.Items.AddRange(new string[] { "Uniform", "Uniformly accelerated", "Oscillating" });
+
 #if DEBUG
             AddRandomObjectButton.Visible = true;
 #endif
@@ -32,6 +33,10 @@ namespace WinFormsApp1
                 {"Oscillating", oscilMotionUserControl1}
             };
 
+            ComboBoxMotionTypes.Items.AddRange(_comboBoxToUserControl.Keys.ToArray());
+
+
+            // TODO: Можно создать базовый класс / интерфейс usercontrol с методом AddMotion 
             _comboBoxToMotion = new Dictionary<string, Func<MotionBase>>()
             {
                 {"Uniform", uniformMotionUserControl1.GetUniformMotion},
@@ -46,12 +51,12 @@ namespace WinFormsApp1
         {
             string selectedState = ComboBoxMotionTypes.SelectedItem.ToString();
 
-            foreach (string motionType in _comboBoxToUserControl.Keys)
+            foreach (var (motionType, userControl) in _comboBoxToUserControl)
             {
-                _comboBoxToUserControl[motionType].Visible = false;
+                userControl.Visible = false;
                 if (selectedState == motionType)
                 {
-                    _comboBoxToUserControl[motionType].Visible = true;
+                    userControl.Visible = true;
                 }
             }
         }

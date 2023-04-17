@@ -1,7 +1,11 @@
+// TODO: Длинные строки
+// TODO: Комментарии
+// TODO: Избавиться от связки с mainform
 namespace WinFormsApp1
 {
     internal static class Program
     {
+        // TODO: Нужно убрать
         public static MainForm mainForm;
         
         /// <summary>
