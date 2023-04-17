@@ -11,14 +11,14 @@ using Model;
 
 namespace WinFormsApp1
 {
-    public partial class OscilMotionUserControl : UserControl
+    public partial class OscilMotionUserControl : MotionBaseUserControl
     {
         public OscilMotionUserControl()
         {
             InitializeComponent();
         }
 
-        public OscilMotion GetOscilMotion()
+        public override MotionBase GetMotion()
         {
             var newOscilMotion = new OscilMotion();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace Model
         /// <summary>
         /// Time field's property.
         /// </summary>
+        [Browsable(false)]
         public double Time
         {
             get => _time;

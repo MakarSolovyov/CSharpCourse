@@ -12,14 +12,14 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormsApp1
 {
-    public partial class UniformMotionUserControl : UserControl
+    public partial class UniformMotionUserControl : MotionBaseUserControl
     {
         public UniformMotionUserControl()
         {
             InitializeComponent();
         }
 
-        public UniformMotion GetUniformMotion()
+        public override MotionBase GetMotion()
         {
             var newUniformMotion = new UniformMotion();
 

@@ -37,12 +37,12 @@ namespace WinFormsApp1
 
             ComboBoxMotionTypes.Items.AddRange(_comboBoxToUserControl.Keys.ToArray());
 
-            // TODO: Можно создать базовый класс / интерфейс usercontrol с методом AddMotion 
+            // TODO:+ Можно создать базовый класс/интерфейс UserControl с методом AddMotion 
             _comboBoxToMotion = new Dictionary<string, Func<MotionBase>>()
             {
-                {"Uniform", uniformMotionUserControl1.GetUniformMotion},
-                {"Uniformly accelerated", uniformAccelMotionUserControl1.GetUniformAccelMotion},
-                {"Oscillating", oscilMotionUserControl1.GetOscilMotion}
+                {"Uniform", uniformMotionUserControl1.GetMotion},
+                {"Uniformly accelerated", uniformAccelMotionUserControl1.GetMotion},
+                {"Oscillating", oscilMotionUserControl1.GetMotion}
             };
 
             ComboBoxMotionTypes.SelectedIndexChanged += ComboBoxMotionTypes_SelectedIndexChanged;

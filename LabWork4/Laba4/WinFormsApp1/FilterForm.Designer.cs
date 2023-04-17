@@ -144,7 +144,7 @@
             this.ClientSize = new System.Drawing.Size(223, 235);
             this.Controls.Add(this.groupBox1);
             this.Name = "FilterForm";
-            this.Text = "FilterForm";
+            this.Text = "Filter";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

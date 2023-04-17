@@ -1,6 +1,6 @@
 // TODO: Длинные строки
 // TODO: Комментарии
-// TODO: Избавиться от связки с mainform
+// TODO:+ Избавиться от связки с Mainform
 namespace WinFormsApp1
 {
     internal static class Program

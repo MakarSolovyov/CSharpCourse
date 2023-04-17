@@ -136,7 +136,7 @@
             this.Controls.Add(this.ComboBoxMotionTypes);
             this.Controls.Add(this.label1);
             this.Name = "InputForm";
-            this.Text = "InputForm";
+            this.Text = "Input";
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

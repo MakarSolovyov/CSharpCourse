@@ -11,14 +11,14 @@ using System.Windows.Forms;
 
 namespace WinFormsApp1
 {
-    public partial class UniformAccelMotionUserControl : UserControl
+    public partial class UniformAccelMotionUserControl : MotionBaseUserControl
     {
         public UniformAccelMotionUserControl()
         {
             InitializeComponent();
         }
 
-        public UniformAccelMotion GetUniformAccelMotion()
+        public override MotionBase GetMotion()
         {
             var newUniformAccelMotion = new UniformAccelMotion();
 
