@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Model
 {
     /// <summary>
     /// Base class for motion types.
     /// </summary>
+    [XmlInclude(typeof(UniformMotion))]
+    [XmlInclude(typeof(UniformAccelMotion))]
+    [XmlInclude(typeof(OscilMotion))]
     public abstract class MotionBase
     {
         /// <summary>

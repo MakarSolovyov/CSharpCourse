@@ -84,5 +84,30 @@ namespace WinFormsApp1
                 file.Close();
             }
         }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var fileBrowser = new OpenFileDialog
+            {
+                Filter = "MotionCoordinate (*.mcrd)|*.mcrd"
+            };
+
+            fileBrowser.ShowDialog();
+
+            var path = fileBrowser.FileName;
+
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
+
+            var xmlSerializer = new XmlSerializer(typeof(BindingList<MotionBase>));
+
+            var file = new StreamReader(path);
+
+            _motionList = (BindingList<MotionBase>)xmlSerializer.Deserialize(file);
+
+            MotionDataGridView.DataSource = _motionList;
+        }
     }
 }
