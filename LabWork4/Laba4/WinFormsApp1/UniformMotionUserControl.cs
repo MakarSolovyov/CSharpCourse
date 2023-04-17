@@ -1,24 +1,24 @@
-﻿using Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Model;
 
 namespace WinFormsApp1
 {
+    /// <summary>
+    /// Class UniformMotionUserControl.
+    /// </summary>
     public partial class UniformMotionUserControl : MotionBaseUserControl
     {
+        /// <summary>
+        /// UniformMotionUserControl instance constructor.
+        /// </summary>
         public UniformMotionUserControl()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Method to get an Motion object.
+        /// </summary>
+        /// <returns>A MotionBase object.</returns>
         public override MotionBase GetMotion()
         {
             var newUniformMotion = new UniformMotion();
@@ -27,17 +27,20 @@ namespace WinFormsApp1
             {
                 () =>
                 {
-                    newUniformMotion.Time = Convert.ToDouble(textBox1.Text);
+                    newUniformMotion.Time = Convert.ToDouble
+                    (textBox1.Text);
                 },
 
                 () =>
                 {
-                    newUniformMotion.Speed = Convert.ToDouble(textBox2.Text);
+                    newUniformMotion.Speed = Convert.ToDouble
+                    (textBox2.Text);
                 },
 
                 () =>
                 {
-                    newUniformMotion.InitCoordinate = Convert.ToDouble(textBox3.Text);
+                    newUniformMotion.InitCoordinate = Convert.ToDouble
+                    (textBox3.Text);
                 }
             };
 

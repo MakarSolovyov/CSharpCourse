@@ -1,9 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Model
 {
     /// <summary>
@@ -14,9 +8,10 @@ namespace Model
         /// <summary>
         /// Get instance of a certain motion.
         /// </summary>
-        /// <returns>An instance of a motion.</returns>
+        /// <param name="motionType">Motion type.</param>
+        /// <returns>An instance of a certain motion.</returns>
         public abstract MotionBase GetInstance(MotionType motionType);
-        
+
         /// <summary>
         /// Get random value.
         /// </summary>

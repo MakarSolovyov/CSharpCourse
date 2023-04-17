@@ -1,16 +1,20 @@
-// TODO: Длинные строки
-// TODO: Комментарии
-// TODO:+ Избавиться от связки с Mainform
+// TODO:+ Р”Р»РёРЅРЅС‹Рµ СЃС‚СЂРѕРєРё
+// TODO:+ РљРѕРјРјРµРЅС‚Р°СЂРёРё
+// TODO:+ РР·Р±Р°РІРёС‚СЊСЃСЏ РѕС‚ СЃРІСЏР·РєРё СЃ Mainform
 namespace WinFormsApp1
 {
+    /// <summary>
+    /// Main class Program.
+    /// </summary>
     internal static class Program
     {
-        // TODO:+ Нужно убрать ссылку на MainForm
+        // TODO:+ РќСѓР¶РЅРѕ СѓР±СЂР°С‚СЊ СЃСЃС‹Р»РєСѓ РЅР° MainForm
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.

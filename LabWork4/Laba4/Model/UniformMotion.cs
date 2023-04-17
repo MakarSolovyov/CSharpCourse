@@ -1,9 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Model
 {
     /// <summary>
@@ -41,7 +35,7 @@ namespace Model
 
         /// <summary>
         /// Uniform motion coordinate.
-        /// </summary>        
+        /// </summary>
         public override double Coordinate => Math.Round(InitCoordinate +
             Speed * Time, 2);
 
@@ -70,7 +64,7 @@ namespace Model
         /// <summary>
         /// Create an instance of class UniformMotion without parameters.
         /// </summary>
-        public UniformMotion() : this (1.11, 1.11, 1.11)
+        public UniformMotion() : this(1.11, 1.11, 1.11)
         { }
     }
 }

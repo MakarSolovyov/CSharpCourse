@@ -1,9 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Model
 {
     /// <summary>
@@ -45,7 +39,7 @@ namespace Model
         public double CyclFrequency
         {
             get => _cyclFrequency;
-            set 
+            set
             {
                 CheckValue(value, MinValue);
                 _cyclFrequency = value;
@@ -63,7 +57,7 @@ namespace Model
 
         /// <summary>
         /// Oscillating motion coordinate.
-        /// </summary>        
+        /// </summary>
         public override double Coordinate => Math.Round(Amplitude *
             Math.Sin(CyclFrequency * Time + InitPhase), 2);
 

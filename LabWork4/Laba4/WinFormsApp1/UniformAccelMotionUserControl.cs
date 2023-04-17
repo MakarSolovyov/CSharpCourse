@@ -1,23 +1,25 @@
-﻿using Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Model;
 
 namespace WinFormsApp1
 {
-    public partial class UniformAccelMotionUserControl : MotionBaseUserControl
+    /// <summary>
+    /// UniformAccelMotionUserControl.
+    /// </summary>
+    public partial class UniformAccelMotionUserControl :
+        MotionBaseUserControl
     {
+        /// <summary>
+        /// UniformAccelMotionUserControl instance constructor.
+        /// </summary>
         public UniformAccelMotionUserControl()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Method to get an Motion object.
+        /// </summary>
+        /// <returns>An MotionBase object.</returns>
         public override MotionBase GetMotion()
         {
             var newUniformAccelMotion = new UniformAccelMotion();
@@ -26,22 +28,26 @@ namespace WinFormsApp1
             {
                 () =>
                 {
-                    newUniformAccelMotion.Time = Convert.ToDouble(textBox1.Text);
+                    newUniformAccelMotion.Time = Convert.ToDouble
+                    (textBox1.Text);
                 },
 
                 () =>
                 {
-                    newUniformAccelMotion.Speed = Convert.ToDouble(textBox2.Text);
+                    newUniformAccelMotion.Speed = Convert.ToDouble
+                    (textBox2.Text);
                 },
 
                 () =>
                 {
-                    newUniformAccelMotion.InitCoordinate = Convert.ToDouble(textBox3.Text);
+                    newUniformAccelMotion.InitCoordinate = Convert.ToDouble
+                    (textBox3.Text);
                 },
 
                 () =>
                 {
-                    newUniformAccelMotion.Acceleration = Convert.ToDouble(textBox4.Text);
+                    newUniformAccelMotion.Acceleration = Convert.ToDouble
+                    (textBox4.Text);
                 },
             };
 

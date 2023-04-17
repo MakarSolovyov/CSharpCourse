@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Model;
 
 namespace WinFormsApp1
 {
+    /// <summary>
+    /// Class of the filter form.
+    /// </summary>
     public partial class FilterForm : Form
     {
+        /// <summary>
+        /// Dictionary of motion types.
+        /// </summary>
         private readonly Dictionary<string, Type> _motionTypes = new()
         {
             {nameof(UniformMotion), typeof(UniformMotion)},
@@ -21,25 +18,33 @@ namespace WinFormsApp1
             {nameof(OscilMotion), typeof(OscilMotion)}
         };
 
+        /// <summary>
+        /// Dictionary of motion type names.
+        /// </summary>
         private readonly Dictionary<string, string> _listBoxToMotionType;
 
-        //private BindingList<MotionBase> motionListFilteredFromMain;
+        /// <summary>
+        /// Field for link to MainForm DataGridView object.
+        /// </summary>
+        private DataGridView _dataGrid;
 
-        //private BindingList<MotionBase> motionListFromMain;
+        /// <summary>
+        /// Field for link to MainForm _motionList object.
+        /// </summary>
+        private BindingList<MotionBase> _motionList;
 
-        private DataGridView dataGrid;
-        private BindingList<MotionBase> motionList;
-
-        public FilterForm(DataGridView dataGridMain, BindingList<MotionBase> motionListMain)
-        {   
+        /// <summary>
+        /// Filter form instance constructor.
+        /// </summary>
+        /// <param name="dataGridMain">MainForm DataGridView object.</param>
+        /// <param name="motionListMain">MainForm _motionList object.</param>
+        public FilterForm(DataGridView dataGridMain,
+            BindingList<MotionBase> motionListMain)
+        {
             InitializeComponent();
 
-            //motionListFilteredFromMain = motionList;
-
-            //motionListFromMain = motionList;
-
-            dataGrid = dataGridMain;
-            motionList = motionListMain;
+            _dataGrid = dataGridMain;
+            _motionList = motionListMain;
 
             _listBoxToMotionType = new Dictionary<string, string>()
             {
@@ -49,26 +54,34 @@ namespace WinFormsApp1
             };
 
             MotionTypeCheckedListBox.Items.AddRange(
-                new string[] { 
-                    "Uniform", "Uniformly accelerated", "Oscillating" 
+                new string[] {
+                    "Uniform", "Uniformly accelerated", "Oscillating"
                 });
         }
 
+        /// <summary>
+        /// Click event to filter information in DataGrid.
+        /// </summary>
+        /// <param name="sender">FilterButton.</param>
+        /// <param name="e">Event argument.</param>
         private void FilterButton_Click(object sender, EventArgs e)
         {
-            if (Convert.ToDouble(UpperBoundTextBox.Text) < Convert.ToDouble(LowerBoundTextBox.Text))
+            if (Convert.ToDouble(UpperBoundTextBox.Text) <
+                Convert.ToDouble(LowerBoundTextBox.Text))
             {
-                MessageBox.Show("Wrong range!");
+                _ = MessageBox.Show("Wrong range!");
             }
             else
             {
                 var typeFilteredList = new BindingList<MotionBase>();
 
-                foreach (var motion in motionList)
+                foreach (var motion in _motionList)
                 {
-                    foreach (var checkedMotion in MotionTypeCheckedListBox.CheckedItems)
+                    foreach (var checkedMotion in
+                        MotionTypeCheckedListBox.CheckedItems)
                     {
-                        if (motion.GetType() == _motionTypes[_listBoxToMotionType[checkedMotion.ToString()]])
+                        if (motion.GetType() == _motionTypes
+                            [_listBoxToMotionType[checkedMotion.ToString()]])
                         {
                             typeFilteredList.Add(motion);
                         }
@@ -79,20 +92,27 @@ namespace WinFormsApp1
 
                 foreach (var motion in typeFilteredList)
                 {
-                    if (motion.Coordinate >= Convert.ToDouble(LowerBoundTextBox.Text) &&
-                        motion.Coordinate <= Convert.ToDouble(UpperBoundTextBox.Text))
+                    if (motion.Coordinate >= Convert.ToDouble
+                        (LowerBoundTextBox.Text) &&
+                        motion.Coordinate <= Convert.ToDouble
+                        (UpperBoundTextBox.Text))
                     {
                         valueFilteredList.Add(motion);
                     }
                 }
 
-                dataGrid.DataSource = valueFilteredList;
+                _dataGrid.DataSource = valueFilteredList;
             }
         }
 
+        /// <summary>
+        /// Click event to reset information in DataGrid to initial values.
+        /// </summary>
+        /// <param name="sender">ResetButton.</param>
+        /// <param name="e">Event argument.</param>
         private void ResetButton_Click(object sender, EventArgs e)
         {
-            dataGrid.DataSource = motionList;
+            _dataGrid.DataSource = _motionList;
         }
     }
 }

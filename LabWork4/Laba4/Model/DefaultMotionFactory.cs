@@ -1,9 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Model
 {
     /// <summary>
@@ -26,14 +20,17 @@ namespace Model
                     {
                         return new UniformMotion();
                     }
+
                 case (MotionType.UniformAccelMotion):
                     {
                         return new UniformAccelMotion();
                     }
+
                 case (MotionType.OscilMotion):
                     {
                         return new OscilMotion();
                     }
+
                 default:
                     throw new ArgumentException
                         ("Enter only designated motion types.");

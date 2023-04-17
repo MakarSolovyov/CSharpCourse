@@ -1,9 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Model
 {
     /// <summary>
@@ -20,48 +14,54 @@ namespace Model
         /// types.</exception>
         public override MotionBase GetInstance(MotionType motionType)
         {
-            var rnd = new Random();
             const int maxValue = 10;
 
             switch (motionType)
             {
                 case (MotionType.UniformMotion):
-                {
-                    var tmpInitCoordinate = GetRandomValue(maxValue, false);
+                    {
+                        var tmpInitCoordinate = GetRandomValue
+                            (maxValue, false);
 
-                    var tmpSpeed = GetRandomValue(maxValue, false);
+                        var tmpSpeed = GetRandomValue(maxValue, false);
 
-                    var tmpTime = GetRandomValue(maxValue, true);
+                        var tmpTime = GetRandomValue(maxValue, true);
 
-                    return new UniformMotion
+                        return new UniformMotion
                             (tmpInitCoordinate, tmpSpeed, tmpTime);
-                }
+                    }
+
                 case (MotionType.UniformAccelMotion):
-                {
-                    var tmpInitCoordinate = GetRandomValue(maxValue, false);
+                    {
+                        var tmpInitCoordinate = GetRandomValue
+                            (maxValue, false);
 
-                    var tmpAcceleration = GetRandomValue(maxValue, false);
+                        var tmpAcceleration = GetRandomValue
+                            (maxValue, false);
 
-                    var tmpSpeed = GetRandomValue(maxValue, false);
+                        var tmpSpeed = GetRandomValue(maxValue, false);
 
-                    var tmpTime = GetRandomValue(maxValue, true);
+                        var tmpTime = GetRandomValue(maxValue, true);
 
-                    return new UniformAccelMotion(tmpSpeed,
-                        tmpInitCoordinate, tmpAcceleration, tmpTime);
-                }
+                        return new UniformAccelMotion(tmpSpeed,
+                            tmpInitCoordinate, tmpAcceleration, tmpTime);
+                    }
+
                 case (MotionType.OscilMotion):
-                {
-                    var tmpAmplitude = GetRandomValue(maxValue, true);
+                    {
+                        var tmpAmplitude = GetRandomValue(maxValue, true);
 
-                    var tmpCyclFrequency = GetRandomValue(maxValue, true);
+                        var tmpCyclFrequency = GetRandomValue
+                            (maxValue, true);
 
-                    var tmpInitPhase = GetRandomValue(maxValue, false);
+                        var tmpInitPhase = GetRandomValue(maxValue, false);
 
-                    var tmpTime = GetRandomValue(maxValue, true);
+                        var tmpTime = GetRandomValue(maxValue, true);
 
-                    return new OscilMotion(tmpAmplitude,
-                        tmpCyclFrequency, tmpInitPhase, tmpTime);
-                }
+                        return new OscilMotion(tmpAmplitude,
+                            tmpCyclFrequency, tmpInitPhase, tmpTime);
+                    }
+
                 default:
                     throw new ArgumentException
                         ("Enter only designated motion types.");

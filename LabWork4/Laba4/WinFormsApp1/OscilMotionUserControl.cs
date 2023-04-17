@@ -1,23 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Model;
 
 namespace WinFormsApp1
 {
+    /// <summary>
+    /// Class OscilMotionUserControl.
+    /// </summary>
     public partial class OscilMotionUserControl : MotionBaseUserControl
     {
+        /// <summary>
+        /// OscilMotionUserControl instance constructor.
+        /// </summary>
         public OscilMotionUserControl()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Method to get an Motion object.
+        /// </summary>
+        /// <returns>A MotionBase object.</returns>
         public override MotionBase GetMotion()
         {
             var newOscilMotion = new OscilMotion();
@@ -26,22 +27,26 @@ namespace WinFormsApp1
             {
                 () =>
                 {
-                    newOscilMotion.Time = Convert.ToDouble(textBox1.Text);
+                    newOscilMotion.Time = Convert.ToDouble
+                    (textBox1.Text);
                 },
 
                 () =>
                 {
-                    newOscilMotion.Amplitude = Convert.ToDouble(textBox2.Text);
+                    newOscilMotion.Amplitude = Convert.ToDouble
+                    (textBox2.Text);
                 },
 
                 () =>
                 {
-                    newOscilMotion.CyclFrequency = Convert.ToDouble(textBox3.Text);
+                    newOscilMotion.CyclFrequency = Convert.ToDouble
+                    (textBox3.Text);
                 },
 
                 () =>
                 {
-                    newOscilMotion.InitPhase = Convert.ToDouble(textBox4.Text);
+                    newOscilMotion.InitPhase = Convert.ToDouble
+                    (textBox4.Text);
                 },
             };
 

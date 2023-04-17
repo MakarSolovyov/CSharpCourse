@@ -1,9 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Model
 {
     /// <summary>
@@ -20,7 +14,7 @@ namespace Model
         /// Initial coordinate.
         /// </summary>
         private double _initCoordinate;
-        
+
         /// <summary>
         /// Acceleration.
         /// </summary>
@@ -55,7 +49,7 @@ namespace Model
 
         /// <summary>
         /// Uniform motion coordinate.
-        /// </summary>        
+        /// </summary>
         public override double Coordinate => Math.Round(InitCoordinate +
             Speed * Time + Acceleration * Time * Time / 2, 2);
 
