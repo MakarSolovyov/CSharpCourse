@@ -18,11 +18,13 @@ namespace WinFormsApp1
 
         private readonly Dictionary<string, Func<MotionBase>> _comboBoxToMotion;
 
-        public InputForm()
+        private BindingList<MotionBase> motionListMain;
+
+        public InputForm(BindingList<MotionBase> motionList)
         {
             InitializeComponent();
 
-
+            motionListMain = motionList;
 #if DEBUG
             AddRandomObjectButton.Visible = true;
 #endif
@@ -34,7 +36,6 @@ namespace WinFormsApp1
             };
 
             ComboBoxMotionTypes.Items.AddRange(_comboBoxToUserControl.Keys.ToArray());
-
 
             // TODO: Можно создать базовый класс / интерфейс usercontrol с методом AddMotion 
             _comboBoxToMotion = new Dictionary<string, Func<MotionBase>>()
@@ -67,7 +68,7 @@ namespace WinFormsApp1
             {
                 if (ComboBoxMotionTypes.SelectedItem.ToString() == motionType.Key)
                 {
-                    MainForm._motionList.Add(motionType.Value.Invoke());
+                    motionListMain.Add(motionType.Value.Invoke());
                 }
             }
         }
@@ -87,13 +88,13 @@ namespace WinFormsApp1
             switch(randomType)
             {
                 case 0:
-                    MainForm._motionList.Add(randomMotion.GetInstance(MotionType.UniformMotion));
+                    motionListMain.Add(randomMotion.GetInstance(MotionType.UniformMotion));
                     break;
                 case 1:
-                    MainForm._motionList.Add(randomMotion.GetInstance(MotionType.UniformAccelMotion));
+                    motionListMain.Add(randomMotion.GetInstance(MotionType.UniformAccelMotion));
                     break;
                 case 2:
-                    MainForm._motionList.Add(randomMotion.GetInstance(MotionType.OscilMotion));
+                    motionListMain.Add(randomMotion.GetInstance(MotionType.OscilMotion));
                     break;
                 default:
                     break;

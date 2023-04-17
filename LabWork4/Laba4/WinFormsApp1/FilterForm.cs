@@ -14,9 +14,6 @@ namespace WinFormsApp1
 {
     public partial class FilterForm : Form
     {
-        /// <summary>
-        /// 
-        /// </summary>
         private readonly Dictionary<string, Type> _motionTypes = new()
         {
             {nameof(UniformMotion), typeof(UniformMotion)},
@@ -24,17 +21,25 @@ namespace WinFormsApp1
             {nameof(OscilMotion), typeof(OscilMotion)}
         };
 
-        /// <summary>
-        /// 
-        /// </summary>
         private readonly Dictionary<string, string> _listBoxToMotionType;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public FilterForm()
+        //private BindingList<MotionBase> motionListFilteredFromMain;
+
+        //private BindingList<MotionBase> motionListFromMain;
+
+        private DataGridView dataGrid;
+        private BindingList<MotionBase> motionList;
+
+        public FilterForm(DataGridView dataGridMain, BindingList<MotionBase> motionListMain)
         {   
             InitializeComponent();
+
+            //motionListFilteredFromMain = motionList;
+
+            //motionListFromMain = motionList;
+
+            dataGrid = dataGridMain;
+            motionList = motionListMain;
 
             _listBoxToMotionType = new Dictionary<string, string>()
             {
@@ -49,15 +54,9 @@ namespace WinFormsApp1
                 });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void FilterButton_Click(object sender, EventArgs e)
         {
-            if (Convert.ToDouble(UpperBoundTextBox.Text) 
-                < Convert.ToDouble(LowerBoundTextBox.Text))
+            if (Convert.ToDouble(UpperBoundTextBox.Text) < Convert.ToDouble(LowerBoundTextBox.Text))
             {
                 MessageBox.Show("Wrong range!");
             }
@@ -65,7 +64,7 @@ namespace WinFormsApp1
             {
                 var typeFilteredList = new BindingList<MotionBase>();
 
-                foreach (var motion in MainForm._motionList)
+                foreach (var motion in motionList)
                 {
                     foreach (var checkedMotion in MotionTypeCheckedListBox.CheckedItems)
                     {
@@ -87,13 +86,13 @@ namespace WinFormsApp1
                     }
                 }
 
-                Program.mainForm.MotionDataGridView.DataSource = valueFilteredList;
+                dataGrid.DataSource = valueFilteredList;
             }
         }
 
         private void ResetButton_Click(object sender, EventArgs e)
         {
-            Program.mainForm.MotionDataGridView.DataSource = MainForm._motionList;
+            dataGrid.DataSource = motionList;
         }
     }
 }

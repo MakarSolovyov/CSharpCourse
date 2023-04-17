@@ -1,33 +1,24 @@
 using System.ComponentModel;
+using System.Windows.Forms;
+using System.Xml.Serialization;
 using Model;
 
 namespace WinFormsApp1
 {
     public partial class MainForm : Form
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public static BindingList<MotionBase> _motionList = new();
+        private static BindingList<MotionBase> _motionList = new();
 
-        /// <summary>
-        /// 
-        /// </summary>
         public MainForm()
         {
             InitializeComponent();
-            Program.mainForm = this;
+
             MotionDataGridView.DataSource = _motionList;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void AddButton_Click(object sender, EventArgs e)
         {
-            var newInputForm = new InputForm();
+            var newInputForm = new InputForm(_motionList);
 
             newInputForm.Show();
 
@@ -39,44 +30,27 @@ namespace WinFormsApp1
             AddButton.Enabled = false;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void RemoveButton_Click(object sender, EventArgs e)
         {
             if (MotionDataGridView.SelectedCells.Count != 0)
             {
-                foreach (DataGridViewRow row in 
-                    MotionDataGridView.SelectedRows)
+                foreach (DataGridViewCell cell in MotionDataGridView.SelectedCells)
                 {
-                    _motionList.Remove(row.DataBoundItem as MotionBase);
+                    _motionList.Remove(cell.OwningRow.DataBoundItem as MotionBase);
                 }
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ClearButton_Click(object sender, EventArgs e)
         {
             _motionList.Clear();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void FilterButton_Click(object sender, EventArgs e)
         {
-            var newFilterForm = new FilterForm();
+            var newFilterForm = new FilterForm(MotionDataGridView, _motionList);
 
             newFilterForm.Show();
-
 
             newFilterForm.Closed += (_, _) =>
             {
@@ -84,6 +58,31 @@ namespace WinFormsApp1
             };
 
             FilterButton.Enabled = false;
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var fileBrowser = new SaveFileDialog
+            {
+                Filter = "MotionCoordinate (*.mcrd)|*.mcrd"
+            };
+
+            fileBrowser.ShowDialog();
+
+            var path = fileBrowser.FileName;
+
+            var xmlSerializer = new XmlSerializer(typeof(BindingList<MotionBase>));
+
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
+
+            using (var file = File.Create(path))
+            {
+                xmlSerializer.Serialize(file, MotionDataGridView.DataSource);
+                file.Close();
+            }
         }
     }
 }

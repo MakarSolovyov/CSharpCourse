@@ -5,9 +5,7 @@ namespace WinFormsApp1
 {
     internal static class Program
     {
-        // TODO: Нужно убрать
-        public static MainForm mainForm;
-        
+        // TODO:+ Нужно убрать ссылку на MainForm
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
