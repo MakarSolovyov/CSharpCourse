@@ -90,12 +90,19 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void OKButton_Click(object sender, EventArgs e)
         {
-            foreach (var motionType in _comboBoxToMotion)
+            if (string.IsNullOrEmpty(ComboBoxMotionTypes.Text.ToString()))
             {
-                if (ComboBoxMotionTypes.SelectedItem.ToString() ==
-                    motionType.Key)
+                Close();
+            }
+            else
+            {
+                foreach (var motionType in _comboBoxToMotion)
                 {
-                    _motionListMain.Add(motionType.Value.Invoke());
+                    if (ComboBoxMotionTypes.SelectedItem.ToString() ==
+                        motionType.Key)
+                    {
+                        _motionListMain.Add(motionType.Value.Invoke());
+                    }
                 }
             }
         }
