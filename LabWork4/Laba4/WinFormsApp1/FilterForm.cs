@@ -57,6 +57,9 @@ namespace WinFormsApp1
                 new string[] {
                     "Uniform", "Uniformly accelerated", "Oscillating"
                 });
+
+            UpperBoundTextBox.Text = "0";
+            LowerBoundTextBox.Text = "0";
         }
 
         /// <summary>
@@ -66,27 +69,45 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void FilterButton_Click(object sender, EventArgs e)
         {
-            if (Convert.ToDouble(UpperBoundTextBox.Text) <
-                Convert.ToDouble(LowerBoundTextBox.Text))
+            var action = new List<Action<BindingList<MotionBase>>>
+            {
+                new Action<BindingList<MotionBase>>((BindingList<MotionBase> typeFilteredList) =>
+                {
+                    foreach (var motion in _motionList)
+                    {
+                        foreach (var checkedMotion in
+                            MotionTypeCheckedListBox.CheckedItems)
+                        {
+                            if (motion.GetType() == _motionTypes
+                                [_listBoxToMotionType[checkedMotion.ToString()]])
+                            {
+                                typeFilteredList.Add(motion);
+                            }
+                        }
+                    }
+                })
+            };
+
+            if ((Convert.ToDouble(UpperBoundTextBox.Text) <=
+                Convert.ToDouble(LowerBoundTextBox.Text)) &&
+                LowerBoundTextBox.Text != "0")
             {
                 _ = MessageBox.Show("Wrong range!");
+            }
+            else if (UpperBoundTextBox.Text == "0" &&
+                LowerBoundTextBox.Text == "0")
+            {
+                var typeFilteredList = new BindingList<MotionBase>();
+
+                action[0].Invoke(typeFilteredList);
+
+                _dataGrid.DataSource = typeFilteredList;
             }
             else
             {
                 var typeFilteredList = new BindingList<MotionBase>();
 
-                foreach (var motion in _motionList)
-                {
-                    foreach (var checkedMotion in
-                        MotionTypeCheckedListBox.CheckedItems)
-                    {
-                        if (motion.GetType() == _motionTypes
-                            [_listBoxToMotionType[checkedMotion.ToString()]])
-                        {
-                            typeFilteredList.Add(motion);
-                        }
-                    }
-                }
+                action[0].Invoke(typeFilteredList);
 
                 var valueFilteredList = new BindingList<MotionBase>();
 
