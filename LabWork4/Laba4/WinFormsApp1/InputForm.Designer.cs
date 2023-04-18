@@ -135,7 +135,9 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.ComboBoxMotionTypes);
             this.Controls.Add(this.label1);
+            this.Location = new System.Drawing.Point(450, 320);
             this.Name = "InputForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Input";
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);

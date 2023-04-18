@@ -71,7 +71,8 @@ namespace WinFormsApp1
         {
             var action = new List<Action<BindingList<MotionBase>>>
             {
-                new Action<BindingList<MotionBase>>((BindingList<MotionBase> typeFilteredList) =>
+                new Action<BindingList<MotionBase>>
+                ((BindingList<MotionBase> typeFilteredList) =>
                 {
                     foreach (var motion in _motionList)
                     {
@@ -79,7 +80,8 @@ namespace WinFormsApp1
                             MotionTypeCheckedListBox.CheckedItems)
                         {
                             if (motion.GetType() == _motionTypes
-                                [_listBoxToMotionType[checkedMotion.ToString()]])
+                            [_listBoxToMotionType
+                            [checkedMotion.ToString()]])
                             {
                                 typeFilteredList.Add(motion);
                             }

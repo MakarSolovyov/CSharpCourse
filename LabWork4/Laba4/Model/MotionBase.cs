@@ -47,6 +47,16 @@ namespace Model
         }
 
         /// <summary>
+        /// Motion type field's property sent to DataGridView.
+        /// </summary>
+        public abstract string MotionType { get; }
+
+        /// <summary>
+        /// Parameters field's property sent to DataGridView.
+        /// </summary>
+        public abstract string Parameters { get; }
+
+        /// <summary>
         /// Coordinate field's property.
         /// </summary>
         public abstract double Coordinate { get; }
@@ -54,6 +64,7 @@ namespace Model
         /// <summary>
         /// Info field's property.
         /// </summary>
+        [Browsable(false)]
         public abstract string Info { get; }
 
         /// <summary>

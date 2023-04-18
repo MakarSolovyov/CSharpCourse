@@ -34,6 +34,17 @@ namespace Model
         }
 
         /// <summary>
+        /// Motion type field's property sent to DataGridView.
+        /// </summary>
+        public override string MotionType => "Uniform";
+
+        /// <summary>
+        /// Parameters field's property sent to DataGridView.
+        /// </summary>
+        public override string Parameters => $"t = {Time}, v = {Speed}," +
+            $" x0 = {InitCoordinate}";
+
+        /// <summary>
         /// Uniform motion coordinate.
         /// </summary>
         public override double Coordinate => Math.Round(InitCoordinate +

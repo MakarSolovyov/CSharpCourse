@@ -56,6 +56,18 @@ namespace Model
         }
 
         /// <summary>
+        /// Motion type field's property sent to DataGridView.
+        /// </summary>
+        public override string MotionType => "Oscillating";
+
+        /// <summary>
+        /// Parameters field's property sent to DataGridView.
+        /// </summary>
+        public override string Parameters => $"t = {Time}," +
+            $" A = {Amplitude}," +
+            $" w = {CyclFrequency}, f0 = {InitPhase}";
+
+        /// <summary>
         /// Oscillating motion coordinate.
         /// </summary>
         public override double Coordinate => Math.Round(Amplitude *

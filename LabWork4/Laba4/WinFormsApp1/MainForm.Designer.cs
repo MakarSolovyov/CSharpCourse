@@ -1,4 +1,6 @@
-﻿namespace WinFormsApp1
+using System.Windows.Forms;
+
+namespace WinFormsApp1
 {
     partial class MainForm
     {
@@ -91,9 +93,11 @@
             // 
             // MotionDataGridView
             // 
+            this.MotionDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.MotionDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MotionDataGridView.Location = new System.Drawing.Point(6, 22);
             this.MotionDataGridView.Name = "MotionDataGridView";
+            this.MotionDataGridView.RowHeadersVisible = false;
             this.MotionDataGridView.RowTemplate.Height = 25;
             this.MotionDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.MotionDataGridView.Size = new System.Drawing.Size(406, 249);
@@ -156,6 +160,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Coordinate calculator";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
