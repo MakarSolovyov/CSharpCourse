@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using Model;
 
@@ -69,10 +70,14 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void FilterButton_Click(object sender, EventArgs e)
         {
+            var valueFilteredList = new BindingList<MotionBase>();
+            var typeFilteredList = new BindingList<MotionBase>();
+
             var action = new List<Action<BindingList<MotionBase>>>
             {
                 new Action<BindingList<MotionBase>>
-                ((BindingList<MotionBase> typeFilteredList) =>
+                (
+                (BindingList<MotionBase> typeFilteredList) =>
                 {
                     foreach (var motion in _motionList)
                     {
@@ -87,44 +92,65 @@ namespace WinFormsApp1
                             }
                         }
                     }
+                }),
+
+                new Action<BindingList<MotionBase>>
+                (
+                (BindingList<MotionBase> typeFilteredList) =>
+                {
+                    foreach (var motion in typeFilteredList)
+                    {
+                        if (motion.Coordinate >= Convert.ToDouble
+                            (LowerBoundTextBox.Text) &&
+                            motion.Coordinate <= Convert.ToDouble
+                            (UpperBoundTextBox.Text))
+                        {
+                            valueFilteredList.Add(motion);
+                        }
+                    }
                 })
             };
 
-            if ((Convert.ToDouble(UpperBoundTextBox.Text) <=
+            if (MotionTypeCheckedListBox.SelectedItems.Count == 0)
+            {
+                if ((Convert.ToDouble(UpperBoundTextBox.Text) <=
                 Convert.ToDouble(LowerBoundTextBox.Text)) &&
                 LowerBoundTextBox.Text != "0")
-            {
-                _ = MessageBox.Show("Wrong range!");
-            }
-            else if (UpperBoundTextBox.Text == "0" &&
-                LowerBoundTextBox.Text == "0")
-            {
-                var typeFilteredList = new BindingList<MotionBase>();
-
-                action[0].Invoke(typeFilteredList);
-
-                _dataGrid.DataSource = typeFilteredList;
+                {
+                    _ = MessageBox.Show("Wrong range!");
+                }
+                else if (UpperBoundTextBox.Text == "0" &&
+                    LowerBoundTextBox.Text == "0")
+                {
+                    Close();
+                }
+                else
+                {
+                    typeFilteredList = _motionList;
+                    action[1].Invoke(typeFilteredList);
+                    _dataGrid.DataSource = valueFilteredList;
+                }
             }
             else
             {
-                var typeFilteredList = new BindingList<MotionBase>();
-
-                action[0].Invoke(typeFilteredList);
-
-                var valueFilteredList = new BindingList<MotionBase>();
-
-                foreach (var motion in typeFilteredList)
+                if ((Convert.ToDouble(UpperBoundTextBox.Text) <=
+                Convert.ToDouble(LowerBoundTextBox.Text)) &&
+                LowerBoundTextBox.Text != "0")
                 {
-                    if (motion.Coordinate >= Convert.ToDouble
-                        (LowerBoundTextBox.Text) &&
-                        motion.Coordinate <= Convert.ToDouble
-                        (UpperBoundTextBox.Text))
-                    {
-                        valueFilteredList.Add(motion);
-                    }
+                    _ = MessageBox.Show("Wrong range!");
                 }
-
-                _dataGrid.DataSource = valueFilteredList;
+                else if (UpperBoundTextBox.Text == "0" &&
+                    LowerBoundTextBox.Text == "0")
+                {
+                    action[0].Invoke(typeFilteredList);
+                    _dataGrid.DataSource = typeFilteredList;
+                }
+                else
+                {
+                    action[0].Invoke(typeFilteredList);
+                    action[1].Invoke(typeFilteredList);
+                    _dataGrid.DataSource = valueFilteredList;
+                }
             }
         }
 

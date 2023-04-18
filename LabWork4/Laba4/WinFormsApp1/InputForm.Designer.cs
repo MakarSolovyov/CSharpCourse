@@ -1,4 +1,4 @@
-﻿namespace WinFormsApp1
+namespace WinFormsApp1
 {
     partial class InputForm
     {
@@ -56,6 +56,7 @@
             this.ComboBoxMotionTypes.Name = "ComboBoxMotionTypes";
             this.ComboBoxMotionTypes.Size = new System.Drawing.Size(229, 23);
             this.ComboBoxMotionTypes.TabIndex = 1;
+            this.ComboBoxMotionTypes.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // groupBox1
             // 
