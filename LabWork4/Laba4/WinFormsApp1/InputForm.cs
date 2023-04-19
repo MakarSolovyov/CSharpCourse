@@ -101,7 +101,27 @@ namespace WinFormsApp1
                     if (ComboBoxMotionTypes.SelectedItem.ToString() ==
                         motionType.Key)
                     {
-                        _motionListMain.Add(motionType.Value.Invoke());
+                        try
+                        {
+                            _motionListMain.Add(motionType.Value.
+                                Invoke());
+                        }
+                        catch (Exception exception)
+                        {
+                            if (exception.GetType() == typeof
+                                (ArgumentOutOfRangeException) ||
+                                exception.GetType() == typeof
+                                (FormatException))
+                            {
+                                _ = MessageBox.Show
+                                    ($"Incorrect input parameters.\n" +
+                                    $"Error: {exception.Message}");
+                            }
+                            else
+                            {
+                                throw exception;
+                            }
+                        }
                     }
                 }
             }
