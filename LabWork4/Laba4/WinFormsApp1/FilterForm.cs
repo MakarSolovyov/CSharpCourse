@@ -41,6 +41,7 @@ namespace WinFormsApp1
         public FilterForm(DataGridView dataGridMain,
             BindingList<MotionBase> motionListMain)
         {
+            //TODO: remove arguments from constructor
             InitializeComponent();
 
             _dataGrid = dataGridMain;

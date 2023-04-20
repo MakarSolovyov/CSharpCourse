@@ -90,6 +90,7 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void OKButton_Click(object sender, EventArgs e)
         {
+            //TODO: refactor to using base control overrided method
             if (string.IsNullOrEmpty(ComboBoxMotionTypes.Text.ToString()))
             {
                 Close();
@@ -145,27 +146,18 @@ namespace WinFormsApp1
         private void AddRandomObjectButton_Click(object sender, EventArgs e)
         {
             var rnd = new Random();
-
-            var randomType = rnd.Next(3);
-            var randomMotion = new RandomMotionFactory();
-
-            switch (randomType)
+            var motionTypes = new Dictionary<int, MotionType>
             {
-                case 0:
-                    _motionListMain.Add(randomMotion.GetInstance(MotionType.
-                        UniformMotion));
-                    break;
-                case 1:
-                    _motionListMain.Add(randomMotion.GetInstance(MotionType.
-                        UniformAccelMotion));
-                    break;
-                case 2:
-                    _motionListMain.Add(randomMotion.GetInstance(MotionType.
-                        OscilMotion));
-                    break;
-                default:
-                    break;
-            }
+                {0, MotionType.UniformMotion },
+                {1, MotionType.UniformAccelMotion },
+                {2, MotionType.OscilMotion }
+            };
+            var randomType = rnd.Next(motionTypes.Count);
+            var randomMotion =
+                new RandomMotionFactory()
+                    .GetInstance(motionTypes[randomType]);
+
+            _motionListMain.Add(randomMotion);
         }
     }
 }

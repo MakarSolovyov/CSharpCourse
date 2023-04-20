@@ -27,6 +27,7 @@ namespace WinFormsApp1
             {
                 () =>
                 {
+                    //TODO: rename
                     newOscilMotion.Time = Convert.ToDouble
                     (textBox1.Text);
                 },
@@ -49,7 +50,7 @@ namespace WinFormsApp1
                     (textBox4.Text);
                 },
             };
-
+            //TODO: duplication
             foreach (var action in actions)
             {
                 action.Invoke();

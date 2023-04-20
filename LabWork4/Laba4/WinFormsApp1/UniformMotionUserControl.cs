@@ -44,6 +44,7 @@ namespace WinFormsApp1
                 }
             };
 
+            //TODO: duplication
             foreach (var action in actions)
             {
                 action.Invoke();
