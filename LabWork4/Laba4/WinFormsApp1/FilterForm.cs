@@ -113,20 +113,20 @@ namespace WinFormsApp1
             if (MotionTypeCheckedListBox.SelectedItems.Count == 0)
             {
                 if (!double.TryParse(UpperBoundTextBox.Text,
-                    out double UpperBound) ||
+                    out double upperBound) ||
                     !double.TryParse(LowerBoundTextBox.Text,
-                    out double LowerBound))
+                    out double lowerBound))
                 {
                     _ = MessageBox.Show("Check range parameters!");
                 }
                 else
                 {
-                    if ((UpperBound <= LowerBound) &&
-                        (LowerBound != 0))
+                    if ((upperBound <= lowerBound) &&
+                        (lowerBound != 0))
                     {
                         _ = MessageBox.Show("Wrong range!");
                     }
-                    else if (UpperBound == 0 && LowerBound == 0)
+                    else if (upperBound == 0 && lowerBound == 0)
                     {
                         Close();
                     }
@@ -141,21 +141,21 @@ namespace WinFormsApp1
             else
             {
                 if (!double.TryParse(UpperBoundTextBox.Text,
-                    out double UpperBound) ||
+                    out double upperBound) ||
                     !double.TryParse(LowerBoundTextBox.Text,
-                    out double LowerBound))
+                    out double lowerBound))
                 {
                     _ = MessageBox.Show("Check range parameters!");
                 }
                 else
                 {
-                    if ((UpperBound <= LowerBound) &&
-                        (LowerBound != 0))
+                    if ((upperBound <= lowerBound) &&
+                        (lowerBound != 0))
                     {
                         _ = MessageBox.Show("Wrong range!");
                     }
-                    else if (UpperBound == 0 &&
-                        LowerBound == 0)
+                    else if (upperBound == 0 &&
+                        lowerBound == 0)
                     {
                         action[0].Invoke(typeFilteredList);
                         _dataGrid.DataSource = typeFilteredList;
