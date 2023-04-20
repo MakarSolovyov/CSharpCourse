@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using Model;
 
@@ -113,43 +112,60 @@ namespace WinFormsApp1
 
             if (MotionTypeCheckedListBox.SelectedItems.Count == 0)
             {
-                if ((Convert.ToDouble(UpperBoundTextBox.Text) <=
-                Convert.ToDouble(LowerBoundTextBox.Text)) &&
-                LowerBoundTextBox.Text != "0")
+                if (!double.TryParse(UpperBoundTextBox.Text,
+                    out double UpperBound) ||
+                    !double.TryParse(LowerBoundTextBox.Text,
+                    out double LowerBound))
                 {
-                    _ = MessageBox.Show("Wrong range!");
-                }
-                else if (UpperBoundTextBox.Text == "0" &&
-                    LowerBoundTextBox.Text == "0")
-                {
-                    Close();
+                    _ = MessageBox.Show("Check range parameters!");
                 }
                 else
                 {
-                    typeFilteredList = _motionList;
-                    action[1].Invoke(typeFilteredList);
-                    _dataGrid.DataSource = valueFilteredList;
+                    if ((UpperBound <= LowerBound) &&
+                        (LowerBound != 0))
+                    {
+                        _ = MessageBox.Show("Wrong range!");
+                    }
+                    else if (UpperBound == 0 && LowerBound == 0)
+                    {
+                        Close();
+                    }
+                    else
+                    {
+                        typeFilteredList = _motionList;
+                        action[1].Invoke(typeFilteredList);
+                        _dataGrid.DataSource = valueFilteredList;
+                    }
                 }
             }
             else
             {
-                if ((Convert.ToDouble(UpperBoundTextBox.Text) <=
-                Convert.ToDouble(LowerBoundTextBox.Text)) &&
-                LowerBoundTextBox.Text != "0")
+                if (!double.TryParse(UpperBoundTextBox.Text,
+                    out double UpperBound) ||
+                    !double.TryParse(LowerBoundTextBox.Text,
+                    out double LowerBound))
                 {
-                    _ = MessageBox.Show("Wrong range!");
-                }
-                else if (UpperBoundTextBox.Text == "0" &&
-                    LowerBoundTextBox.Text == "0")
-                {
-                    action[0].Invoke(typeFilteredList);
-                    _dataGrid.DataSource = typeFilteredList;
+                    _ = MessageBox.Show("Check range parameters!");
                 }
                 else
                 {
-                    action[0].Invoke(typeFilteredList);
-                    action[1].Invoke(typeFilteredList);
-                    _dataGrid.DataSource = valueFilteredList;
+                    if ((UpperBound <= LowerBound) &&
+                        (LowerBound != 0))
+                    {
+                        _ = MessageBox.Show("Wrong range!");
+                    }
+                    else if (UpperBound == 0 &&
+                        LowerBound == 0)
+                    {
+                        action[0].Invoke(typeFilteredList);
+                        _dataGrid.DataSource = typeFilteredList;
+                    }
+                    else
+                    {
+                        action[0].Invoke(typeFilteredList);
+                        action[1].Invoke(typeFilteredList);
+                        _dataGrid.DataSource = valueFilteredList;
+                    }
                 }
             }
         }
