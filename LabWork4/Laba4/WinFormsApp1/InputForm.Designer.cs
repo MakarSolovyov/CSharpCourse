@@ -51,12 +51,12 @@ namespace WinFormsApp1
             // 
             // ComboBoxMotionTypes
             // 
+            this.ComboBoxMotionTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBoxMotionTypes.FormattingEnabled = true;
             this.ComboBoxMotionTypes.Location = new System.Drawing.Point(12, 27);
             this.ComboBoxMotionTypes.Name = "ComboBoxMotionTypes";
             this.ComboBoxMotionTypes.Size = new System.Drawing.Size(229, 23);
             this.ComboBoxMotionTypes.TabIndex = 1;
-            this.ComboBoxMotionTypes.DropDownStyle = ComboBoxStyle.DropDownList;
             // 
             // groupBox1
             // 
@@ -137,6 +137,8 @@ namespace WinFormsApp1
             this.Controls.Add(this.ComboBoxMotionTypes);
             this.Controls.Add(this.label1);
             this.Location = new System.Drawing.Point(450, 320);
+            this.MaximumSize = new System.Drawing.Size(269, 470);
+            this.MinimumSize = new System.Drawing.Size(269, 470);
             this.Name = "InputForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Input";

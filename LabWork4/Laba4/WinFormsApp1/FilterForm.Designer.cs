@@ -144,6 +144,8 @@
             this.ClientSize = new System.Drawing.Size(223, 235);
             this.Controls.Add(this.groupBox1);
             this.Location = new System.Drawing.Point(1200, 430);
+            this.MaximumSize = new System.Drawing.Size(239, 274);
+            this.MinimumSize = new System.Drawing.Size(239, 274);
             this.Name = "FilterForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Filter";
