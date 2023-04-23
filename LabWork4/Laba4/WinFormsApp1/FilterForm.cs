@@ -24,28 +24,31 @@ namespace WinFormsApp1
         private readonly Dictionary<string, string> _listBoxToMotionType;
 
         /// <summary>
-        /// Field for link to MainForm DataGridView object.
+        /// Handler to event of filtering motion.
         /// </summary>
-        private DataGridView _dataGrid;
+        private EventHandler<MotionEventArgs> _motionListFiltered;
 
         /// <summary>
-        /// Field for link to MainForm _motionList object.
+        /// EventHandler _motionListFiltered field's property.
         /// </summary>
-        private BindingList<MotionBase> _motionList;
+        public EventHandler<MotionEventArgs> MotionListFiltered
+        {
+            get => _motionListFiltered;
+            set => _motionListFiltered = value;
+        }
+
+        /// <summary>
+        /// Property for link to MainForm _motionList object.
+        /// </summary>
+        public BindingList<MotionBase> MotionListMain { get; set; }
 
         /// <summary>
         /// Filter form instance constructor.
         /// </summary>
-        /// <param name="dataGridMain">MainForm DataGridView object.</param>
-        /// <param name="motionListMain">MainForm _motionList object.</param>
-        public FilterForm(DataGridView dataGridMain,
-            BindingList<MotionBase> motionListMain)
+        public FilterForm()
         {
-            //TODO: remove arguments from constructor
+            // TODO:+ remove arguments from constructor
             InitializeComponent();
-
-            _dataGrid = dataGridMain;
-            _motionList = motionListMain;
 
             _listBoxToMotionType = new Dictionary<string, string>()
             {
@@ -54,10 +57,8 @@ namespace WinFormsApp1
                 {"Oscillating", "OscilMotion" }
             };
 
-            MotionTypeCheckedListBox.Items.AddRange(
-                new string[] {
-                    "Uniform", "Uniformly accelerated", "Oscillating"
-                });
+            MotionTypeCheckedListBox.Items.AddRange
+                (_listBoxToMotionType.Keys.ToArray());
 
             UpperBoundTextBox.Text = "0";
             LowerBoundTextBox.Text = "0";
@@ -79,7 +80,7 @@ namespace WinFormsApp1
                 (
                 (BindingList<MotionBase> typeFilteredList) =>
                 {
-                    foreach (var motion in _motionList)
+                    foreach (var motion in MotionListMain)
                     {
                         foreach (var checkedMotion in
                             MotionTypeCheckedListBox.CheckedItems)
@@ -133,9 +134,12 @@ namespace WinFormsApp1
                     }
                     else
                     {
-                        typeFilteredList = _motionList;
+                        typeFilteredList = MotionListMain;
                         action[1].Invoke(typeFilteredList);
-                        _dataGrid.DataSource = valueFilteredList;
+
+                        var eventArgs = new MotionEventArgs
+                            (valueFilteredList);
+                        MotionListFiltered?.Invoke(this, eventArgs);
                     }
                 }
             }
@@ -159,13 +163,19 @@ namespace WinFormsApp1
                         lowerBound == 0)
                     {
                         action[0].Invoke(typeFilteredList);
-                        _dataGrid.DataSource = typeFilteredList;
+
+                        var eventArgs = new MotionEventArgs
+                            (typeFilteredList);
+                        MotionListFiltered?.Invoke(this, eventArgs);
                     }
                     else
                     {
                         action[0].Invoke(typeFilteredList);
                         action[1].Invoke(typeFilteredList);
-                        _dataGrid.DataSource = valueFilteredList;
+
+                        var eventArgs = new MotionEventArgs
+                            (valueFilteredList);
+                        MotionListFiltered?.Invoke(this, eventArgs);
                     }
                 }
             }
@@ -178,7 +188,8 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void ResetButton_Click(object sender, EventArgs e)
         {
-            _dataGrid.DataSource = _motionList;
+            var eventArgs = new MotionEventArgs(MotionListMain);
+            MotionListFiltered?.Invoke(this, eventArgs);
         }
     }
 }

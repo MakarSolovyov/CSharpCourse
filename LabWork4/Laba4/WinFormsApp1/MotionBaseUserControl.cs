@@ -12,5 +12,17 @@ namespace WinFormsApp1
         /// </summary>
         /// <returns>An Motion object.</returns>
         public abstract MotionBase GetMotion();
+
+        /// <summary>
+        /// Wright input parameters in instance.
+        /// </summary>
+        /// <param name="actions">Action list of parameters.</param>
+        public void InputParameters(List<Action> actions)
+        {
+            foreach (var action in actions)
+            {
+                action.Invoke();
+            }
+        }
     }
 }

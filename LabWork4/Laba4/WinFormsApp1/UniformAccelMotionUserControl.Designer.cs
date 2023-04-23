@@ -1,4 +1,4 @@
-﻿namespace WinFormsApp1
+namespace WinFormsApp1
 {
     partial class UniformAccelMotionUserControl
     {
@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.initCoordinateValue = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.speedValue = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.timeValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.accelerationValue = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(17, 134);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(190, 23);
-            this.textBox3.TabIndex = 11;
+            this.initCoordinateValue.Location = new System.Drawing.Point(17, 134);
+            this.initCoordinateValue.Name = "textBox3";
+            this.initCoordinateValue.Size = new System.Drawing.Size(190, 23);
+            this.initCoordinateValue.TabIndex = 11;
             // 
             // label3
             // 
@@ -56,10 +56,10 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(17, 86);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(190, 23);
-            this.textBox2.TabIndex = 9;
+            this.speedValue.Location = new System.Drawing.Point(17, 86);
+            this.speedValue.Name = "textBox2";
+            this.speedValue.Size = new System.Drawing.Size(190, 23);
+            this.speedValue.TabIndex = 9;
             // 
             // label2
             // 
@@ -72,10 +72,10 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(17, 38);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(190, 23);
-            this.textBox1.TabIndex = 7;
+            this.timeValue.Location = new System.Drawing.Point(17, 38);
+            this.timeValue.Name = "textBox1";
+            this.timeValue.Size = new System.Drawing.Size(190, 23);
+            this.timeValue.TabIndex = 7;
             // 
             // label1
             // 
@@ -97,22 +97,22 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(17, 182);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(190, 23);
-            this.textBox4.TabIndex = 13;
+            this.accelerationValue.Location = new System.Drawing.Point(17, 182);
+            this.accelerationValue.Name = "textBox4";
+            this.accelerationValue.Size = new System.Drawing.Size(190, 23);
+            this.accelerationValue.TabIndex = 13;
             // 
             // UniformAccelMotionUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.accelerationValue);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.initCoordinateValue);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.speedValue);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.timeValue);
             this.Controls.Add(this.label1);
             this.Name = "UniformAccelMotionUserControl";
             this.Size = new System.Drawing.Size(224, 237);
@@ -123,13 +123,13 @@
 
         #endregion
 
-        private TextBox textBox3;
+        private TextBox initCoordinateValue;
         private Label label3;
-        private TextBox textBox2;
+        private TextBox speedValue;
         private Label label2;
-        private TextBox textBox1;
+        private TextBox timeValue;
         private Label label1;
         private Label label4;
-        private TextBox textBox4;
+        private TextBox accelerationValue;
     }
 }

@@ -1,4 +1,5 @@
 using Model;
+using System.Collections.Generic;
 
 namespace WinFormsApp1
 {
@@ -28,27 +29,24 @@ namespace WinFormsApp1
                 () =>
                 {
                     newUniformMotion.Time = Convert.ToDouble
-                    (textBox1.Text);
+                    (timeValue.Text);
                 },
 
                 () =>
                 {
                     newUniformMotion.Speed = Convert.ToDouble
-                    (textBox2.Text);
+                    (speedValue.Text);
                 },
 
                 () =>
                 {
                     newUniformMotion.InitCoordinate = Convert.ToDouble
-                    (textBox3.Text);
+                    (initCoordinateValue.Text);
                 }
             };
 
-            //TODO: duplication
-            foreach (var action in actions)
-            {
-                action.Invoke();
-            }
+            // TODO:+ duplication
+            InputParameters(actions);
 
             return newUniformMotion;
         }

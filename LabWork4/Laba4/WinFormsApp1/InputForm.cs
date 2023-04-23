@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using Model;
 
 namespace WinFormsApp1
@@ -15,33 +14,37 @@ namespace WinFormsApp1
             UserControl> _comboBoxToUserControl;
 
         /// <summary>
-        /// Dictionary of motion instances.
+        /// Handler to event of adding motion.
         /// </summary>
-        private readonly Dictionary<string,
-            Func<MotionBase>> _comboBoxToMotion;
+        private EventHandler<MotionEventArgs> _motionAdded;
 
         /// <summary>
-        /// Field for link to MainForm _motionList object.
+        /// EventHandler _motionAdded field's property.
         /// </summary>
-        private BindingList<MotionBase> _motionListMain;
+        public EventHandler<MotionEventArgs> MotionAdded
+        {
+            get => _motionAdded;
+            set => _motionAdded = value;
+        }
 
         /// <summary>
         /// Input form instance constructor.
         /// </summary>
         /// <param name="motionList">MainForm _motionList object.</param>
-        public InputForm(BindingList<MotionBase> motionList)
+        public InputForm()
         {
             InitializeComponent();
-
-            _motionListMain = motionList;
 #if DEBUG
             AddRandomObjectButton.Visible = true;
 #endif
+            string[] motionTypes = { "Uniform", "Uniformly accelerated",
+                "Oscillating" };
+
             _comboBoxToUserControl = new Dictionary<string, UserControl>()
             {
-                {"Uniform", uniformMotionUserControl1},
-                {"Uniformly accelerated", uniformAccelMotionUserControl1},
-                {"Oscillating", oscilMotionUserControl1}
+                {motionTypes[0], uniformMotionUserControl1},
+                {motionTypes[1], uniformAccelMotionUserControl1},
+                {motionTypes[2], oscilMotionUserControl1}
             };
 
             ComboBoxMotionTypes.Items.AddRange(_comboBoxToUserControl.Keys.
@@ -49,14 +52,6 @@ namespace WinFormsApp1
 
             // TODO:+ Можно создать базовый класс/интерфейс UserControl
             // с методом AddMotion
-            _comboBoxToMotion = new Dictionary<string, Func<MotionBase>>()
-            {
-                {"Uniform", uniformMotionUserControl1.GetMotion},
-                {"Uniformly accelerated", uniformAccelMotionUserControl1.
-                    GetMotion},
-                {"Oscillating", oscilMotionUserControl1.GetMotion}
-            };
-
             ComboBoxMotionTypes.SelectedIndexChanged +=
                 ComboBoxMotionTypes_SelectedIndexChanged;
         }
@@ -69,8 +64,8 @@ namespace WinFormsApp1
         private void ComboBoxMotionTypes_SelectedIndexChanged
             (object sender, EventArgs e)
         {
-            string selectedState = ComboBoxMotionTypes.SelectedItem.
-                ToString();
+            string selectedState =
+                ComboBoxMotionTypes.SelectedItem.ToString();
 
             foreach (var (motionType, userControl) in
                 _comboBoxToUserControl)
@@ -90,39 +85,38 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void OKButton_Click(object sender, EventArgs e)
         {
-            //TODO: refactor to using base control overrided method
+            // TODO:+ refactor to using base control overrided method
             if (string.IsNullOrEmpty(ComboBoxMotionTypes.Text.ToString()))
             {
                 Close();
             }
             else
             {
-                foreach (var motionType in _comboBoxToMotion)
+                try
                 {
-                    if (ComboBoxMotionTypes.SelectedItem.ToString() ==
-                        motionType.Key)
+                    var chosenMotion =
+                        ComboBoxMotionTypes.SelectedItem.ToString();
+                    var chosenMotionControl =
+                        _comboBoxToUserControl[chosenMotion];
+                    var eventArgs = new MotionEventArgs
+                        (((MotionBaseUserControl)chosenMotionControl).
+                        GetMotion());
+                    MotionAdded?.Invoke(this, eventArgs);
+                }
+                catch (Exception exception)
+                {
+                    if (exception.GetType() == typeof
+                        (ArgumentOutOfRangeException) ||
+                        exception.GetType() == typeof
+                        (FormatException))
                     {
-                        try
-                        {
-                            _motionListMain.Add(motionType.Value.
-                                Invoke());
-                        }
-                        catch (Exception exception)
-                        {
-                            if (exception.GetType() == typeof
-                                (ArgumentOutOfRangeException) ||
-                                exception.GetType() == typeof
-                                (FormatException))
-                            {
-                                _ = MessageBox.Show
-                                    ($"Incorrect input parameters.\n" +
-                                    $"Error: {exception.Message}");
-                            }
-                            else
-                            {
-                                throw exception;
-                            }
-                        }
+                        _ = MessageBox.Show
+                            ($"Incorrect input parameters.\n" +
+                            $"Error: {exception.Message}");
+                    }
+                    else
+                    {
+                        throw exception;
                     }
                 }
             }
@@ -157,7 +151,8 @@ namespace WinFormsApp1
                 new RandomMotionFactory()
                     .GetInstance(motionTypes[randomType]);
 
-            _motionListMain.Add(randomMotion);
+            var eventArgs = new MotionEventArgs(randomMotion);
+            MotionAdded?.Invoke(this, eventArgs);
         }
     }
 }

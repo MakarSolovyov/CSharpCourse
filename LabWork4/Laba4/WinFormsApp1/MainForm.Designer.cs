@@ -95,11 +95,12 @@ namespace WinFormsApp1
             // 
             this.MotionDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.MotionDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.MotionDataGridView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.MotionDataGridView.Location = new System.Drawing.Point(6, 22);
             this.MotionDataGridView.Name = "MotionDataGridView";
             this.MotionDataGridView.RowHeadersVisible = false;
             this.MotionDataGridView.RowTemplate.Height = 25;
-            this.MotionDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.MotionDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             this.MotionDataGridView.Size = new System.Drawing.Size(406, 249);
             this.MotionDataGridView.TabIndex = 0;
             // 

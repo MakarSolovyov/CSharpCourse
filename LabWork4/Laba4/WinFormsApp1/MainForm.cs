@@ -12,7 +12,7 @@ namespace WinFormsApp1
         /// <summary>
         /// List of MotionBase objects.
         /// </summary>
-        private static BindingList<MotionBase> _motionList = new();
+        private BindingList<MotionBase> _motionList = new();
 
         /// <summary>
         /// Main form instance constructor.
@@ -21,8 +21,9 @@ namespace WinFormsApp1
         {
             InitializeComponent();
 
-            //TODO: binding source
-            MotionDataGridView.DataSource = _motionList;
+            // TODO:+ binding source
+            var source = new BindingSource(_motionList, null);
+            MotionDataGridView.DataSource = source;
         }
 
         /// <summary>
@@ -32,10 +33,17 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void AddButton_Click(object sender, EventArgs e)
         {
-            //TODO: to events
-            var newInputForm = new InputForm(_motionList);
+            // TODO:+ to events
+            var newInputForm = new InputForm();
 
             newInputForm.Show();
+
+            newInputForm.MotionAdded += (_, args) =>
+            {
+                _motionList.Add(args.Motion);
+
+                MotionDataGridView.DataSource = _motionList;
+            };
 
             newInputForm.Closed += (_, _) =>
             {
@@ -54,12 +62,11 @@ namespace WinFormsApp1
         {
             if (MotionDataGridView.SelectedCells.Count != 0)
             {
-                //TODO: refactor
-                foreach (DataGridViewCell cell in
-                    MotionDataGridView.SelectedCells)
+                // TODO:+ refactor
+                foreach (DataGridViewRow row in
+                    MotionDataGridView.SelectedRows)
                 {
-                    _ = _motionList.Remove(cell.OwningRow.
-                        DataBoundItem as MotionBase);
+                    _motionList.RemoveAt(row.Index);
                 }
             }
         }
@@ -81,11 +88,17 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void FilterButton_Click(object sender, EventArgs e)
         {
-            //TODO: to events
-            var newFilterForm = new FilterForm(MotionDataGridView,
-                _motionList);
+            // TODO:+ to events
+            var newFilterForm = new FilterForm();
+
+            newFilterForm.MotionListMain = _motionList;
 
             newFilterForm.Show();
+
+            newFilterForm.MotionListFiltered += (_, args) =>
+            {
+                MotionDataGridView.DataSource = args.MotionListFiltered;
+            };
 
             newFilterForm.Closed += (_, _) =>
             {
@@ -150,11 +163,12 @@ namespace WinFormsApp1
             var xmlSerializer = new XmlSerializer
                 (typeof(BindingList<MotionBase>));
 
-            //TODO: using
-            var file = new StreamReader(path);
-
-            _motionList = (BindingList<MotionBase>)xmlSerializer.
-                Deserialize(file);
+            // TODO:+ using
+            using (var file = new StreamReader(path))
+            {
+                _motionList = (BindingList<MotionBase>)xmlSerializer.
+                    Deserialize(file);
+            }
 
             MotionDataGridView.DataSource = _motionList;
         }

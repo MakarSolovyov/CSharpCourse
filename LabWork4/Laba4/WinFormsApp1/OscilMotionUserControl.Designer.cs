@@ -1,4 +1,4 @@
-﻿namespace WinFormsApp1
+namespace WinFormsApp1
 {
     partial class OscilMotionUserControl
     {
@@ -28,22 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.initPhaseValue = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.cyclFrequencyValue = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.amplitudeValue = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.timeValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(17, 182);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(190, 23);
-            this.textBox4.TabIndex = 21;
+            this.initPhaseValue.Location = new System.Drawing.Point(17, 182);
+            this.initPhaseValue.Name = "textBox4";
+            this.initPhaseValue.Size = new System.Drawing.Size(190, 23);
+            this.initPhaseValue.TabIndex = 21;
             // 
             // label4
             // 
@@ -56,10 +56,10 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(17, 134);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(190, 23);
-            this.textBox3.TabIndex = 19;
+            this.cyclFrequencyValue.Location = new System.Drawing.Point(17, 134);
+            this.cyclFrequencyValue.Name = "textBox3";
+            this.cyclFrequencyValue.Size = new System.Drawing.Size(190, 23);
+            this.cyclFrequencyValue.TabIndex = 19;
             // 
             // label3
             // 
@@ -72,10 +72,10 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(17, 86);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(190, 23);
-            this.textBox2.TabIndex = 17;
+            this.amplitudeValue.Location = new System.Drawing.Point(17, 86);
+            this.amplitudeValue.Name = "textBox2";
+            this.amplitudeValue.Size = new System.Drawing.Size(190, 23);
+            this.amplitudeValue.TabIndex = 17;
             // 
             // label2
             // 
@@ -88,10 +88,10 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(17, 38);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(190, 23);
-            this.textBox1.TabIndex = 15;
+            this.timeValue.Location = new System.Drawing.Point(17, 38);
+            this.timeValue.Name = "textBox1";
+            this.timeValue.Size = new System.Drawing.Size(190, 23);
+            this.timeValue.TabIndex = 15;
             // 
             // label1
             // 
@@ -106,13 +106,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.initPhaseValue);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.cyclFrequencyValue);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.amplitudeValue);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.timeValue);
             this.Controls.Add(this.label1);
             this.Name = "OscilMotionUserControl";
             this.Size = new System.Drawing.Size(224, 237);
@@ -123,13 +123,13 @@
 
         #endregion
 
-        private TextBox textBox4;
+        private TextBox initPhaseValue;
         private Label label4;
-        private TextBox textBox3;
+        private TextBox cyclFrequencyValue;
         private Label label3;
-        private TextBox textBox2;
+        private TextBox amplitudeValue;
         private Label label2;
-        private TextBox textBox1;
+        private TextBox timeValue;
         private Label label1;
     }
 }
