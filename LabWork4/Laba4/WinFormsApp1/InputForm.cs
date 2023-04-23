@@ -47,8 +47,7 @@ namespace WinFormsApp1
                 {motionTypes[2], oscilMotionUserControl1}
             };
 
-            ComboBoxMotionTypes.Items.AddRange(_comboBoxToUserControl.Keys.
-                ToArray());
+            ComboBoxMotionTypes.Items.AddRange(motionTypes);
 
             // TODO:+ Можно создать базовый класс/интерфейс UserControl
             // с методом AddMotion
