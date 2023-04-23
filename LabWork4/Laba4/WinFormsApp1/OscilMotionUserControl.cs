@@ -29,25 +29,25 @@ namespace WinFormsApp1
                 {
                     // TODO:+ rename
                     newOscilMotion.Time = Convert.ToDouble
-                    (timeValue.Text);
+                    (timeValue.Text.Replace(".", ","));
                 },
 
                 () =>
                 {
                     newOscilMotion.Amplitude = Convert.ToDouble
-                    (amplitudeValue.Text);
+                    (amplitudeValue.Text.Replace(".", ","));
                 },
 
                 () =>
                 {
                     newOscilMotion.CyclFrequency = Convert.ToDouble
-                    (cyclFrequencyValue.Text);
+                    (cyclFrequencyValue.Text.Replace(".", ","));
                 },
 
                 () =>
                 {
                     newOscilMotion.InitPhase = Convert.ToDouble
-                    (initPhaseValue.Text);
+                    (initPhaseValue.Text.Replace(".", ","));
                 },
             };
 

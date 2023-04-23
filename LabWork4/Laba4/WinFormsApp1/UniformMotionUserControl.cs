@@ -29,19 +29,19 @@ namespace WinFormsApp1
                 () =>
                 {
                     newUniformMotion.Time = Convert.ToDouble
-                    (timeValue.Text);
+                    (timeValue.Text.Replace(".", ","));
                 },
 
                 () =>
                 {
                     newUniformMotion.Speed = Convert.ToDouble
-                    (speedValue.Text);
+                    (speedValue.Text.Replace(".", ","));
                 },
 
                 () =>
                 {
                     newUniformMotion.InitCoordinate = Convert.ToDouble
-                    (initCoordinateValue.Text);
+                    (initCoordinateValue.Text.Replace(".", ","));
                 }
             };
 

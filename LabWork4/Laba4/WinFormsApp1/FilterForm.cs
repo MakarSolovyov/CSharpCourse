@@ -102,9 +102,9 @@ namespace WinFormsApp1
                     foreach (var motion in typeFilteredList)
                     {
                         if (motion.Coordinate >= Convert.ToDouble
-                            (LowerBoundTextBox.Text) &&
+                            (LowerBoundTextBox.Text.Replace(".", ",")) &&
                             motion.Coordinate <= Convert.ToDouble
-                            (UpperBoundTextBox.Text))
+                            (UpperBoundTextBox.Text.Replace(".", ",")))
                         {
                             valueFilteredList.Add(motion);
                         }
@@ -112,55 +112,26 @@ namespace WinFormsApp1
                 })
             };
 
-            if (MotionTypeCheckedListBox.SelectedItems.Count == 0)
+            if (!double.TryParse(UpperBoundTextBox.Text.
+                    Replace(".", ","), out double upperBound) ||
+                    !double.TryParse(LowerBoundTextBox.Text.
+                    Replace(".", ","), out double lowerBound))
             {
-                if (!double.TryParse(UpperBoundTextBox.Text,
-                    out double upperBound) ||
-                    !double.TryParse(LowerBoundTextBox.Text,
-                    out double lowerBound))
+                _ = MessageBox.Show("Check range parameters!");
+            }
+            else
+            {
+                if ((upperBound <= lowerBound) && (lowerBound != 0))
                 {
-                    _ = MessageBox.Show("Check range parameters!");
+                    _ = MessageBox.Show("Wrong range!");
                 }
-                else
+                else if (upperBound == 0 && lowerBound == 0)
                 {
-                    if ((upperBound <= lowerBound) &&
-                        (lowerBound != 0))
-                    {
-                        _ = MessageBox.Show("Wrong range!");
-                    }
-                    else if (upperBound == 0 && lowerBound == 0)
+                    if (MotionTypeCheckedListBox.SelectedItems.Count == 0)
                     {
                         Close();
                     }
                     else
-                    {
-                        typeFilteredList = MotionListMain;
-                        action[1].Invoke(typeFilteredList);
-
-                        var eventArgs = new MotionEventArgs
-                            (valueFilteredList);
-                        MotionListFiltered?.Invoke(this, eventArgs);
-                    }
-                }
-            }
-            else
-            {
-                if (!double.TryParse(UpperBoundTextBox.Text,
-                    out double upperBound) ||
-                    !double.TryParse(LowerBoundTextBox.Text,
-                    out double lowerBound))
-                {
-                    _ = MessageBox.Show("Check range parameters!");
-                }
-                else
-                {
-                    if ((upperBound <= lowerBound) &&
-                        (lowerBound != 0))
-                    {
-                        _ = MessageBox.Show("Wrong range!");
-                    }
-                    else if (upperBound == 0 &&
-                        lowerBound == 0)
                     {
                         action[0].Invoke(typeFilteredList);
 
@@ -168,15 +139,23 @@ namespace WinFormsApp1
                             (typeFilteredList);
                         MotionListFiltered?.Invoke(this, eventArgs);
                     }
+                }
+                else
+                {
+                    if (MotionTypeCheckedListBox.SelectedItems.Count == 0)
+                    {
+                        typeFilteredList = MotionListMain;
+                        action[1].Invoke(typeFilteredList);
+                    }
                     else
                     {
                         action[0].Invoke(typeFilteredList);
                         action[1].Invoke(typeFilteredList);
-
-                        var eventArgs = new MotionEventArgs
-                            (valueFilteredList);
-                        MotionListFiltered?.Invoke(this, eventArgs);
                     }
+
+                    var eventArgs = new MotionEventArgs
+                        (valueFilteredList);
+                    MotionListFiltered?.Invoke(this, eventArgs);
                 }
             }
         }
