@@ -49,8 +49,6 @@ namespace WinFormsApp1
 
             ComboBoxMotionTypes.Items.AddRange(motionTypes);
 
-            // TODO:+ Можно создать базовый класс/интерфейс UserControl
-            // с методом AddMotion
             ComboBoxMotionTypes.SelectedIndexChanged +=
                 ComboBoxMotionTypes_SelectedIndexChanged;
         }
@@ -84,7 +82,6 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void OKButton_Click(object sender, EventArgs e)
         {
-            // TODO:+ refactor to using base control overrided method
             if (string.IsNullOrEmpty(ComboBoxMotionTypes.Text.ToString()))
             {
                 Close();
@@ -115,7 +112,7 @@ namespace WinFormsApp1
                     }
                     else
                     {
-                        throw exception;
+                        throw;
                     }
                 }
             }

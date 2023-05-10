@@ -47,11 +47,11 @@ namespace WinFormsApp1
         /// </summary>
         public FilterForm()
         {
-            // TODO:+ remove arguments from constructor
             InitializeComponent();
 
             _listBoxToMotionType = new Dictionary<string, string>()
             {
+                //TODO: nameof
                 {"Uniform", "UniformMotion"},
                 {"Uniformly accelerated", "UniformAccelMotion"},
                 {"Oscillating", "OscilMotion" }
@@ -85,9 +85,8 @@ namespace WinFormsApp1
                         foreach (var checkedMotion in
                             MotionTypeCheckedListBox.CheckedItems)
                         {
-                            if (motion.GetType() == _motionTypes
-                            [_listBoxToMotionType
-                            [checkedMotion.ToString()]])
+                            if (motion.GetType() ==
+                                _motionTypes[_listBoxToMotionType[checkedMotion.ToString()]])
                             {
                                 typeFilteredList.Add(motion);
                             }
@@ -101,10 +100,10 @@ namespace WinFormsApp1
                 {
                     foreach (var motion in typeFilteredList)
                     {
-                        if (motion.Coordinate >= Convert.ToDouble
-                            (LowerBoundTextBox.Text.Replace(".", ",")) &&
-                            motion.Coordinate <= Convert.ToDouble
-                            (UpperBoundTextBox.Text.Replace(".", ",")))
+                        if (motion.Coordinate >=
+                                Convert.ToDouble(LowerBoundTextBox.Text.Replace(".", ","))
+                            && motion.Coordinate <=
+                                Convert.ToDouble(UpperBoundTextBox.Text.Replace(".", ",")))
                         {
                             valueFilteredList.Add(motion);
                         }

@@ -1,6 +1,3 @@
-// TODO:+ Длинные строки
-// TODO:+ Комментарии
-// TODO:+ Избавиться от связки с Mainform
 namespace WinFormsApp1
 {
     /// <summary>
@@ -8,8 +5,6 @@ namespace WinFormsApp1
     /// </summary>
     internal static class Program
     {
-        // TODO:+ Нужно убрать ссылку на MainForm
-
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>

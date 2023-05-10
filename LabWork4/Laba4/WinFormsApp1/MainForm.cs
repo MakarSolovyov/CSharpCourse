@@ -21,7 +21,6 @@ namespace WinFormsApp1
         {
             InitializeComponent();
 
-            // TODO:+ binding source
             var source = new BindingSource(_motionList, null);
             MotionDataGridView.DataSource = source;
         }
@@ -33,7 +32,6 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void AddButton_Click(object sender, EventArgs e)
         {
-            // TODO:+ to events
             var newInputForm = new InputForm();
 
             newInputForm.Show();
@@ -62,10 +60,10 @@ namespace WinFormsApp1
         {
             if (MotionDataGridView.SelectedCells.Count != 0)
             {
-                // TODO:+ refactor
                 foreach (DataGridViewRow row in
                     MotionDataGridView.SelectedRows)
                 {
+                    //BUG
                     _motionList.RemoveAt(row.Index);
                 }
             }
@@ -88,7 +86,6 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void FilterButton_Click(object sender, EventArgs e)
         {
-            // TODO:+ to events
             var newFilterForm = new FilterForm();
 
             newFilterForm.MotionListMain = _motionList;
@@ -163,7 +160,7 @@ namespace WinFormsApp1
             var xmlSerializer = new XmlSerializer
                 (typeof(BindingList<MotionBase>));
 
-            // TODO:+ using
+            //BUG при загрузке повреждённого файла
             using (var file = new StreamReader(path))
             {
                 _motionList = (BindingList<MotionBase>)xmlSerializer.

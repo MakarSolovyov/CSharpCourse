@@ -29,23 +29,25 @@ namespace WinFormsApp1
                 () =>
                 {
                     newUniformMotion.Time = Convert.ToDouble
+                    //TODO: duplication
                     (timeValue.Text.Replace(".", ","));
                 },
 
                 () =>
                 {
                     newUniformMotion.Speed = Convert.ToDouble
+                    //TODO: duplication
                     (speedValue.Text.Replace(".", ","));
                 },
 
                 () =>
                 {
                     newUniformMotion.InitCoordinate = Convert.ToDouble
+                    //TODO: duplication
                     (initCoordinateValue.Text.Replace(".", ","));
                 }
             };
 
-            // TODO:+ duplication
             InputParameters(actions);
 
             return newUniformMotion;
