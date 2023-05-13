@@ -95,8 +95,8 @@ namespace WinFormsApp1
                     var chosenMotionControl =
                         _comboBoxToUserControl[chosenMotion];
                     var eventArgs = new MotionEventArgs
-                        (((MotionBaseUserControl)chosenMotionControl).
-                        GetMotion());
+                        (((MotionBaseUserControl)chosenMotionControl).GetMotion());
+
                     MotionAdded?.Invoke(this, eventArgs);
                 }
                 catch (Exception exception)

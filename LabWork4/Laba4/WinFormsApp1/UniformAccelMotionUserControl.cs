@@ -29,29 +29,33 @@ namespace WinFormsApp1
                 () =>
                 {
                     newUniformAccelMotion.Time = Convert.ToDouble
-                    //TODO: duplication
-                    (timeValue.Text.Replace(".", ","));
+
+                    // TODO:+ duplication
+                    (timeValue.Text.ReplaceByComma());
                 },
 
                 () =>
                 {
                     newUniformAccelMotion.Speed = Convert.ToDouble
-                    //TODO: duplication
-                    (speedValue.Text.Replace(".", ","));
+
+                    // TODO:+ duplication
+                    (speedValue.Text.ReplaceByComma());
                 },
 
                 () =>
                 {
                     newUniformAccelMotion.InitCoordinate = Convert.ToDouble
-                    //TODO: duplication
-                    (initCoordinateValue.Text.Replace(".", ","));
+
+                    // TODO:+ duplication
+                    (initCoordinateValue.Text.ReplaceByComma());
                 },
 
                 () =>
                 {
                     newUniformAccelMotion.Acceleration = Convert.ToDouble
-                    //TODO: duplication
-                    (accelerationValue.Text.Replace(".", ","));
+
+                    // TODO:+ duplication
+                    (accelerationValue.Text.ReplaceByComma());
                 },
             };
 

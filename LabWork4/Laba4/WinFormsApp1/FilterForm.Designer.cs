@@ -1,4 +1,4 @@
-﻿namespace WinFormsApp1
+namespace WinFormsApp1
 {
     partial class FilterForm
     {
@@ -123,6 +123,7 @@
             // MotionTypeCheckedListBox
             // 
             this.MotionTypeCheckedListBox.FormattingEnabled = true;
+            this.MotionTypeCheckedListBox.CheckOnClick = true;
             this.MotionTypeCheckedListBox.Location = new System.Drawing.Point(6, 37);
             this.MotionTypeCheckedListBox.Name = "MotionTypeCheckedListBox";
             this.MotionTypeCheckedListBox.Size = new System.Drawing.Size(188, 58);

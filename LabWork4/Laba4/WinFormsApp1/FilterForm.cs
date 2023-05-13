@@ -51,17 +51,14 @@ namespace WinFormsApp1
 
             _listBoxToMotionType = new Dictionary<string, string>()
             {
-                //TODO: nameof
-                {"Uniform", "UniformMotion"},
-                {"Uniformly accelerated", "UniformAccelMotion"},
-                {"Oscillating", "OscilMotion" }
+                // TODO:+ nameof
+                {"Uniform", nameof(UniformMotion)},
+                {"Uniformly accelerated", nameof(UniformAccelMotion)},
+                {"Oscillating", nameof(OscilMotion) }
             };
 
             MotionTypeCheckedListBox.Items.AddRange
                 (_listBoxToMotionType.Keys.ToArray());
-
-            UpperBoundTextBox.Text = "0";
-            LowerBoundTextBox.Text = "0";
         }
 
         /// <summary>
@@ -101,9 +98,9 @@ namespace WinFormsApp1
                     foreach (var motion in typeFilteredList)
                     {
                         if (motion.Coordinate >=
-                                Convert.ToDouble(LowerBoundTextBox.Text.Replace(".", ","))
+                                Convert.ToDouble(LowerBoundTextBox.Text.ReplaceByComma())
                             && motion.Coordinate <=
-                                Convert.ToDouble(UpperBoundTextBox.Text.Replace(".", ",")))
+                                Convert.ToDouble(UpperBoundTextBox.Text.ReplaceByComma()))
                         {
                             valueFilteredList.Add(motion);
                         }
@@ -111,10 +108,28 @@ namespace WinFormsApp1
                 })
             };
 
-            if (!double.TryParse(UpperBoundTextBox.Text.
-                    Replace(".", ","), out double upperBound) ||
-                    !double.TryParse(LowerBoundTextBox.Text.
-                    Replace(".", ","), out double lowerBound))
+            var upperBoundFilled = double.TryParse(UpperBoundTextBox.Text.ReplaceByComma(),
+                out double upperBound);
+            var lowerBoundFilled = double.TryParse(LowerBoundTextBox.Text.ReplaceByComma(),
+                out double lowerBound);
+
+            if (string.IsNullOrEmpty(UpperBoundTextBox.Text) &&
+                string.IsNullOrEmpty(LowerBoundTextBox.Text))
+            {
+                if (MotionTypeCheckedListBox.SelectedItems.Count == 0)
+                {
+                    Close();
+                }
+                else
+                {
+                    action[0].Invoke(typeFilteredList);
+
+                    var eventArgs = new MotionEventArgs
+                        (typeFilteredList);
+                    MotionListFiltered?.Invoke(this, eventArgs);
+                }
+            }
+            else if (!upperBoundFilled || !lowerBoundFilled)
             {
                 _ = MessageBox.Show("Check range parameters!");
             }
@@ -123,21 +138,6 @@ namespace WinFormsApp1
                 if ((upperBound <= lowerBound) && (lowerBound != 0))
                 {
                     _ = MessageBox.Show("Wrong range!");
-                }
-                else if (upperBound == 0 && lowerBound == 0)
-                {
-                    if (MotionTypeCheckedListBox.SelectedItems.Count == 0)
-                    {
-                        Close();
-                    }
-                    else
-                    {
-                        action[0].Invoke(typeFilteredList);
-
-                        var eventArgs = new MotionEventArgs
-                            (typeFilteredList);
-                        MotionListFiltered?.Invoke(this, eventArgs);
-                    }
                 }
                 else
                 {

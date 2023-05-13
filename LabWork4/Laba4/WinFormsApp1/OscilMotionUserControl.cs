@@ -40,15 +40,17 @@ namespace WinFormsApp1
                 () =>
                 {
                     newOscilMotion.CyclFrequency = Convert.ToDouble
-                    //TODO
-                    (cyclFrequencyValue.Text.Replace(".", ","));
+
+                    // TODO+
+                    (cyclFrequencyValue.Text.ReplaceByComma());
                 },
 
                 () =>
                 {
                     newOscilMotion.InitPhase = Convert.ToDouble
-                    //TODO
-                    (initPhaseValue.Text.Replace(".", ","));
+
+                    // TODO+
+                    (initPhaseValue.Text.ReplaceByComma());
                 },
             };
 

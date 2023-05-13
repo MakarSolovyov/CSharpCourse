@@ -15,6 +15,11 @@ namespace WinFormsApp1
         private BindingList<MotionBase> _motionList = new();
 
         /// <summary>
+        /// List of MotionBase objects, created by filter.
+        /// </summary>
+        private BindingList<MotionBase> _filteredList = new();
+
+        /// <summary>
         /// Main form instance constructor.
         /// </summary>
         public MainForm()
@@ -63,8 +68,10 @@ namespace WinFormsApp1
                 foreach (DataGridViewRow row in
                     MotionDataGridView.SelectedRows)
                 {
-                    //BUG
-                    _motionList.RemoveAt(row.Index);
+                    // BUG+
+                    _ = _motionList.Remove(row.DataBoundItem as MotionBase);
+
+                    _ = _filteredList.Remove(row.DataBoundItem as MotionBase);
                 }
             }
         }
@@ -77,6 +84,7 @@ namespace WinFormsApp1
         private void ClearButton_Click(object sender, EventArgs e)
         {
             _motionList.Clear();
+            _filteredList.Clear();
         }
 
         /// <summary>
@@ -95,6 +103,7 @@ namespace WinFormsApp1
             newFilterForm.MotionListFiltered += (_, args) =>
             {
                 MotionDataGridView.DataSource = args.MotionListFiltered;
+                _filteredList = args.MotionListFiltered;
             };
 
             newFilterForm.Closed += (_, _) =>
@@ -160,14 +169,34 @@ namespace WinFormsApp1
             var xmlSerializer = new XmlSerializer
                 (typeof(BindingList<MotionBase>));
 
-            //BUG при загрузке повреждённого файла
-            using (var file = new StreamReader(path))
+            // BUG+ при загрузке повреждённого файла
+            try
             {
-                _motionList = (BindingList<MotionBase>)xmlSerializer.
-                    Deserialize(file);
-            }
+                using (var file = new StreamReader(path))
+                {
+                    _motionList = (BindingList<MotionBase>)xmlSerializer.Deserialize(file);
+                }
 
-            MotionDataGridView.DataSource = _motionList;
+                MotionDataGridView.DataSource = _motionList;
+            }
+            catch (Exception exception)
+            {
+                if (exception.GetType() ==
+                    typeof(InvalidOperationException))
+                {
+                    _ = MessageBox.Show("File upload error.");
+                }
+                else if (exception.GetType() ==
+                    typeof(ArgumentException))
+                {
+                    _ = MessageBox.Show("The data structure of the " +
+                        "uploaded file is broken.");
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
     }
 }
