@@ -38,8 +38,6 @@ namespace Model
         /// <summary>
         /// An instance of class MotionBase.
         /// </summary>
-        /// <param name="initCoordinate">Initial coordinate value.</param>
-        /// <param name="speed">Speed value.</param>
         /// <param name="time">Time value.</param>
         public MotionBase(double time)
         {

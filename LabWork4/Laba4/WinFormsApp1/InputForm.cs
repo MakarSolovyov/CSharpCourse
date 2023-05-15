@@ -14,23 +14,13 @@ namespace WinFormsApp1
             UserControl> _comboBoxToUserControl;
 
         /// <summary>
-        /// Handler to event of adding motion.
-        /// </summary>
-        private EventHandler<MotionEventArgs> _motionAdded;
-
-        /// <summary>
         /// EventHandler _motionAdded field's property.
         /// </summary>
-        public EventHandler<MotionEventArgs> MotionAdded
-        {
-            get => _motionAdded;
-            set => _motionAdded = value;
-        }
+        public EventHandler<MotionEventArgs> MotionAdded { get; set; }
 
         /// <summary>
         /// Input form instance constructor.
         /// </summary>
-        /// <param name="motionList">MainForm _motionList object.</param>
         public InputForm()
         {
             InitializeComponent();
@@ -82,7 +72,7 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void OKButton_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(ComboBoxMotionTypes.Text.ToString()))
+            if (string.IsNullOrEmpty(ComboBoxMotionTypes.Text))
             {
                 Close();
             }

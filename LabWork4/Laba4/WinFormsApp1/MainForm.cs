@@ -68,9 +68,7 @@ namespace WinFormsApp1
                 foreach (DataGridViewRow row in
                     MotionDataGridView.SelectedRows)
                 {
-                    // BUG+
                     _ = _motionList.Remove(row.DataBoundItem as MotionBase);
-
                     _ = _filteredList.Remove(row.DataBoundItem as MotionBase);
                 }
             }
@@ -168,13 +166,12 @@ namespace WinFormsApp1
 
             var xmlSerializer = new XmlSerializer
                 (typeof(BindingList<MotionBase>));
-
-            // BUG+ при загрузке повреждённого файла
             try
             {
                 using (var file = new StreamReader(path))
                 {
-                    _motionList = (BindingList<MotionBase>)xmlSerializer.Deserialize(file);
+                    _motionList = (BindingList<MotionBase>)xmlSerializer
+                        .Deserialize(file);
                 }
 
                 MotionDataGridView.DataSource = _motionList;

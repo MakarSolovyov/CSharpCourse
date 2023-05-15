@@ -24,18 +24,9 @@ namespace WinFormsApp1
         private readonly Dictionary<string, string> _listBoxToMotionType;
 
         /// <summary>
-        /// Handler to event of filtering motion.
-        /// </summary>
-        private EventHandler<MotionEventArgs> _motionListFiltered;
-
-        /// <summary>
         /// EventHandler _motionListFiltered field's property.
         /// </summary>
-        public EventHandler<MotionEventArgs> MotionListFiltered
-        {
-            get => _motionListFiltered;
-            set => _motionListFiltered = value;
-        }
+        public EventHandler<MotionEventArgs> MotionListFiltered { get; set; }
 
         /// <summary>
         /// Property for link to MainForm _motionList object.
@@ -51,7 +42,6 @@ namespace WinFormsApp1
 
             _listBoxToMotionType = new Dictionary<string, string>()
             {
-                // TODO:+ nameof
                 {"Uniform", nameof(UniformMotion)},
                 {"Uniformly accelerated", nameof(UniformAccelMotion)},
                 {"Oscillating", nameof(OscilMotion) }
@@ -71,16 +61,21 @@ namespace WinFormsApp1
             var valueFilteredList = new BindingList<MotionBase>();
             var typeFilteredList = new BindingList<MotionBase>();
 
+            var upperBoundFilled = double.TryParse(
+                UpperBoundTextBox.Text.ReplaceByComma(),
+                out double upperBound);
+            var lowerBoundFilled = double.TryParse(
+                LowerBoundTextBox.Text.ReplaceByComma(),
+                out double lowerBound);
+
             var action = new List<Action<BindingList<MotionBase>>>
             {
-                new Action<BindingList<MotionBase>>
-                (
-                (BindingList<MotionBase> typeFilteredList) =>
+                typeFilteredList =>
                 {
                     foreach (var motion in MotionListMain)
                     {
                         foreach (var checkedMotion in
-                            MotionTypeCheckedListBox.CheckedItems)
+                                 MotionTypeCheckedListBox.CheckedItems)
                         {
                             if (motion.GetType() ==
                                 _motionTypes[_listBoxToMotionType[checkedMotion.ToString()]])
@@ -89,29 +84,20 @@ namespace WinFormsApp1
                             }
                         }
                     }
-                }),
+                },
 
-                new Action<BindingList<MotionBase>>
-                (
-                (BindingList<MotionBase> typeFilteredList) =>
+                typeFilteredList =>
                 {
                     foreach (var motion in typeFilteredList)
                     {
-                        if (motion.Coordinate >=
-                                Convert.ToDouble(LowerBoundTextBox.Text.ReplaceByComma())
-                            && motion.Coordinate <=
-                                Convert.ToDouble(UpperBoundTextBox.Text.ReplaceByComma()))
+                        if (motion.Coordinate >= upperBound
+                            && motion.Coordinate <= lowerBound)
                         {
                             valueFilteredList.Add(motion);
                         }
                     }
-                })
+                }
             };
-
-            var upperBoundFilled = double.TryParse(UpperBoundTextBox.Text.ReplaceByComma(),
-                out double upperBound);
-            var lowerBoundFilled = double.TryParse(LowerBoundTextBox.Text.ReplaceByComma(),
-                out double lowerBound);
 
             if (string.IsNullOrEmpty(UpperBoundTextBox.Text) &&
                 string.IsNullOrEmpty(LowerBoundTextBox.Text))
@@ -124,8 +110,7 @@ namespace WinFormsApp1
                 {
                     action[0].Invoke(typeFilteredList);
 
-                    var eventArgs = new MotionEventArgs
-                        (typeFilteredList);
+                    var eventArgs = new MotionEventArgs(typeFilteredList);
                     MotionListFiltered?.Invoke(this, eventArgs);
                 }
             }
@@ -135,7 +120,7 @@ namespace WinFormsApp1
             }
             else
             {
-                if ((upperBound <= lowerBound) && (lowerBound != 0))
+                if (upperBound <= lowerBound)
                 {
                     _ = MessageBox.Show("Wrong range!");
                 }
