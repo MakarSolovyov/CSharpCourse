@@ -21,19 +21,5 @@ namespace WinFormsApp1
         {
             Motion = motion;
         }
-
-        /// <summary>
-        /// Filtered motion list.
-        /// </summary>
-        public BindingList<MotionBase> MotionListFiltered { get; private set; }
-
-        /// <summary>
-        /// Constructor of event MotionEventArgs class with filtered motion list.
-        /// </summary>
-        /// <param name="motionListFiltered">Filtered motion list.</param>
-        public MotionEventArgs(BindingList<MotionBase> motionListFiltered)
-        {
-            MotionListFiltered = motionListFiltered;
-        }
     }
 }

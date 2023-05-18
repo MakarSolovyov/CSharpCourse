@@ -26,7 +26,7 @@ namespace WinFormsApp1
         /// <summary>
         /// EventHandler _motionListFiltered field's property.
         /// </summary>
-        public EventHandler<MotionEventArgs> MotionListFiltered { get; set; }
+        public EventHandler<MotionEventArgsList> MotionListFiltered { get; set; }
 
         /// <summary>
         /// Property for link to MainForm _motionList object.
@@ -110,7 +110,7 @@ namespace WinFormsApp1
                 {
                     action[0].Invoke(typeFilteredList);
 
-                    var eventArgs = new MotionEventArgs(typeFilteredList);
+                    var eventArgs = new MotionEventArgsList(typeFilteredList);
                     MotionListFiltered?.Invoke(this, eventArgs);
                 }
             }
@@ -137,7 +137,7 @@ namespace WinFormsApp1
                         action[1].Invoke(typeFilteredList);
                     }
 
-                    var eventArgs = new MotionEventArgs
+                    var eventArgs = new MotionEventArgsList
                         (valueFilteredList);
                     MotionListFiltered?.Invoke(this, eventArgs);
                 }
@@ -151,7 +151,7 @@ namespace WinFormsApp1
         /// <param name="e">Event argument.</param>
         private void ResetButton_Click(object sender, EventArgs e)
         {
-            var eventArgs = new MotionEventArgs(MotionListMain);
+            var eventArgs = new MotionEventArgsList(MotionListMain);
             MotionListFiltered?.Invoke(this, eventArgs);
         }
     }
