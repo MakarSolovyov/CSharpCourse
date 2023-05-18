@@ -196,7 +196,7 @@ namespace WinFormsApp1
                     else
                     {
                         _ = MessageBox.Show("Error!\nThe data structure of" +
-                            " the uploaded file is broken.");
+                            " the loaded file is broken.");
                     }
                 }
                 else
