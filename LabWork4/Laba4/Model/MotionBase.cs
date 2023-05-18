@@ -74,7 +74,11 @@ namespace Model
         /// greater than minimal value.</exception>
         protected static void CheckValue(double value, double minValue)
         {
-            if (value < minValue)
+            if (double.IsNaN(value))
+            {
+                throw new ArgumentException("NaN value!");
+            }
+            else if (value < minValue)
             {
                 throw new ArgumentOutOfRangeException
                     ($"{value} must be greater than {minValue}");

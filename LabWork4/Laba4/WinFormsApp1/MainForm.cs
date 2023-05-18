@@ -181,13 +181,23 @@ namespace WinFormsApp1
                 if (exception.GetType() ==
                     typeof(InvalidOperationException))
                 {
-                    _ = MessageBox.Show("File upload error.");
-                }
-                else if (exception.GetType() ==
-                    typeof(ArgumentException))
-                {
-                    _ = MessageBox.Show("The data structure of the " +
-                        "uploaded file is broken.");
+                    if (exception.InnerException.GetType() ==
+                        typeof(ArgumentException))
+                    {
+                        _ = MessageBox.Show("Error!\nSome parameters have" +
+                            " NaN value.");
+                    }
+                    else if (exception.InnerException.GetType() ==
+                        typeof(ArgumentOutOfRangeException))
+                    {
+                        _ = MessageBox.Show("Error!\nSome parameters are" +
+                            " lower than min value.");
+                    }
+                    else
+                    {
+                        _ = MessageBox.Show("Error!\nThe data structure of" +
+                            " the uploaded file is broken.");
+                    }
                 }
                 else
                 {

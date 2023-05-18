@@ -41,6 +41,8 @@ namespace WinFormsApp1
 
             ComboBoxMotionTypes.SelectedIndexChanged +=
                 ComboBoxMotionTypes_SelectedIndexChanged;
+
+            CancelButton.Enabled = false;
         }
 
         /// <summary>
@@ -53,6 +55,8 @@ namespace WinFormsApp1
         {
             string selectedState =
                 ComboBoxMotionTypes.SelectedItem.ToString();
+
+            CancelButton.Enabled = true;
 
             foreach (var (motionType, userControl) in
                 _comboBoxToUserControl)
